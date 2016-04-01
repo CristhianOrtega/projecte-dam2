@@ -18,6 +18,11 @@
             android:id="@+id/menuConfig"
             android:icon="@drawable/ic_menu_manage"
             android:title="Configuración" />
+
+        <item
+            android:id="@+id/loginMenu"
+            android:icon="@drawable/ic_sync_black_24dp"
+            android:title="Login/Registro" />
     </group>
 
 </menu>

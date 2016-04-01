@@ -28,7 +28,11 @@
             android:label="@string/title_activity_configuracion" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".NuevoProducto"
+            android:label="@string/title_activity_nuevo_producto"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
