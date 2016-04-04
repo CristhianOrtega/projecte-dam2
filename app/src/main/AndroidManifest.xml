@@ -32,6 +32,10 @@
         <activity
             android:name=".NuevoProducto"
             android:label="@string/title_activity_nuevo_producto"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Buscar"
+            android:label="@string/title_activity_buscar"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
