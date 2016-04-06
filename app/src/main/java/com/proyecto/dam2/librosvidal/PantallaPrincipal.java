@@ -64,7 +64,9 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.buscarProdMenu) {
-            // Handle the camera action
+            Intent i = new Intent(this, Buscar.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
         } else if (id == R.id.PerfilMenu) {
 
         } else if (id == R.id.ChatMenu) {
