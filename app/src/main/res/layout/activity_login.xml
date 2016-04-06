@@ -80,7 +80,8 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_register"
                 android:textStyle="bold"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:onClick="registrarse" />
 
         </LinearLayout>
     </ScrollView>

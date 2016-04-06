@@ -18,46 +18,77 @@
         android:id="@+id/scrollView"
         android:layout_above="@+id/ButtonPublicar">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <EditText
-                android:layout_width="wrap_content"
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editTextNombreProd"
-                android:hint="Nombre del producto"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:id="@+id/view6"
+                android:layout_marginTop="10dp">
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/editTextPrecio"
-                android:hint="Precio"
-                android:layout_below="@+id/editTextNombreProd"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextNombreProd"
+                    android:hint="Nombre del producto"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
-            <EditText
-                android:layout_width="wrap_content"
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editTextDescripcion"
-                android:layout_below="@+id/editTextPrecio"
-                android:hint="Descripcion y detalles del producto"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/editTextPrecio"
-                android:layout_alignEnd="@+id/editTextPrecio"
-                android:layout_marginTop="10dp" />
+                android:id="@+id/view7"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/editTextPrecio"
+                    android:hint="Precio"
+                    android:layout_below="@+id/editTextNombreProd"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/view8"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editTextDescripcion"
+                    android:layout_below="@+id/editTextPrecio"
+                    android:hint="Descripcion y detalles del producto"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignRight="@+id/editTextPrecio"
+                    android:layout_alignEnd="@+id/editTextPrecio"
+                    android:layout_marginTop="10dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -132,7 +163,7 @@
 
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </ScrollView>

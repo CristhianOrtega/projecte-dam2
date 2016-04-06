@@ -36,7 +36,8 @@
         <activity
             android:name=".Buscar"
             android:label="@string/title_activity_buscar"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Registro_Usuario"></activity>
     </application>
 
 </manifest>
