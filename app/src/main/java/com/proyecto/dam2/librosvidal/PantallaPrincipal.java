@@ -55,7 +55,9 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Calling Header", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(context, EditarPerfil.class );
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
     }
