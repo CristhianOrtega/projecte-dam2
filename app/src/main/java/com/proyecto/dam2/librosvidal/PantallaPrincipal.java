@@ -55,7 +55,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, EditarPerfil.class );
+                Intent i = new Intent(context, VerPerfil.class );
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }

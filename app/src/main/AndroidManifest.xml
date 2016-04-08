@@ -39,7 +39,8 @@
             android:label="@string/title_activity_buscar"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Registro_Usuario" />
-        <activity android:name=".EditarPerfil"></activity>
+        <activity android:name=".EditarPerfil" />
+        <activity android:name=".VerPerfil"/>
     </application>
 
 </manifest>
