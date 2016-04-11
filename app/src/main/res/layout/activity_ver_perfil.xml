@@ -35,21 +35,21 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:background="#FFFFFF">
+                android:background="@color/White">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nombre:"
                     android:id="@+id/textView"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_gravity="left"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="David"
                     android:id="@+id/nombrePerfil"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:gravity="right"
                     android:layout_weight="1" />
             </LinearLayout>
@@ -62,21 +62,21 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:background="#FFFFFF">
+                android:background="@color/White">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Apellidos:"
                     android:id="@+id/textView2"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_gravity="left"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Martinez Lopez"
                     android:id="@+id/apellidosPerfil"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:gravity="right"
                     android:layout_weight="1" />
             </LinearLayout>
@@ -89,13 +89,13 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:background="#FFFFFF">
+                android:background="@color/White">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="E-mail:"
-                    android:id="@+id/textViewe"
+                    android:id="@+id/textView3"
                     android:textSize="18sp"
                     android:layout_gravity="left"/>
                 <TextView
@@ -107,8 +107,51 @@
                     android:gravity="right"
                     android:layout_weight="1" />
             </LinearLayout>
+            <View style="@style/Divider"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@color/White">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Perfil:"
+                        android:id="@+id/textView4"
+                        android:textSize="18sp"
+                        android:layout_gravity="left"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dfsfgsfgsgsg sgsgsgsgsgsgsgsgsgsgsgsgsg sgfsdgsdgsdg sgdsdg sg sg"
+                        android:id="@+id/descripcionPerfil"
+                        android:textSize="18sp"
+                        android:gravity="left"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+            <View style="@style/Divider"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar perfil"
+                android:id="@+id/button2"
+                android:background="@color/White"/>
         </LinearLayout>
 
     </ScrollView>
+
+
 
 </RelativeLayout>
