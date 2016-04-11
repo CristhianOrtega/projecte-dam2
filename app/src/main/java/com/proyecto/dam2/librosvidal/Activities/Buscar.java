@@ -1,43 +1,31 @@
-package com.proyecto.dam2.librosvidal;
+package com.proyecto.dam2.librosvidal.Activities;
 
-import android.content.Context;
+/**
+ * Created by david on 7/4/16.
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class PantallaPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    Context context = this;
+import com.proyecto.dam2.librosvidal.R;
 
+public class Buscar extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla_principal);
+        setContentView(R.layout.activity_buscar);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Declaracion del floating button de añadir producto + funcion de dirigir a la activity cuando se pulsa
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(context, NuevoProducto.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -47,19 +35,6 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        //MOSTRAR EL HEADER DEL NAVIGATION
-        View headerView= navigationView.inflateHeaderView(R.layout.nav_header_all);
-
-        //LISTENER DEL NAV HEADER
-        headerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, VerPerfil.class );
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-            }
-        });
     }
 
     @Override
@@ -89,10 +64,6 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.menuConfig) {
             Intent i = new Intent(this, Configuracion.class );
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else if (id == R.id.loginMenu) {
-            Intent i = new Intent(this, LoginActivity.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         }

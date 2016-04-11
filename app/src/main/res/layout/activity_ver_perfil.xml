@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.proyecto.dam2.librosvidal.VerPerfil">
+    tools:context=".Activities.VerPerfil">
 
     <ImageView
         android:layout_width="match_parent"

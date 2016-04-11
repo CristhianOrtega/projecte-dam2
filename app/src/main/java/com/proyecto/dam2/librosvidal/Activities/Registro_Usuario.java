@@ -1,4 +1,4 @@
-package com.proyecto.dam2.librosvidal;
+package com.proyecto.dam2.librosvidal.Activities;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
+import com.proyecto.dam2.librosvidal.R;
 
 import java.util.HashMap;
 

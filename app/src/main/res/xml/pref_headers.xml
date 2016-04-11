@@ -3,17 +3,17 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.proyecto.dam2.librosvidal.Configuracion$GeneralPreferenceFragment"
+        android:fragment="com.proyecto.dam2.librosvidal.Activities.Configuracion$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_general" />
 
     <header
-        android:fragment="com.proyecto.dam2.librosvidal.Configuracion$NotificationPreferenceFragment"
+        android:fragment="com.proyecto.dam2.librosvidal.Activities.Configuracion$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/pref_header_notifications" />
 
     <header
-        android:fragment="com.proyecto.dam2.librosvidal.Configuracion$DataSyncPreferenceFragment"
+        android:fragment="com.proyecto.dam2.librosvidal.Activities.Configuracion$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black_24dp"
         android:title="@string/pref_header_data_sync" />
 

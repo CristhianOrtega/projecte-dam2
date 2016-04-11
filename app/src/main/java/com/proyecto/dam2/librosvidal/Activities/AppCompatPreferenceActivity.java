@@ -1,4 +1,4 @@
-package com.proyecto.dam2.librosvidal;
+package com.proyecto.dam2.librosvidal.Activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

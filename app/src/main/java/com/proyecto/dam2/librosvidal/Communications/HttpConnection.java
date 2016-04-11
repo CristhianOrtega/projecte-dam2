@@ -1,4 +1,4 @@
-package com.proyecto.dam2.librosvidal;
+package com.proyecto.dam2.librosvidal.Communications;
 
 import android.util.Log;
 

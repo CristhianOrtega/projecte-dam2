@@ -1,11 +1,10 @@
-package com.proyecto.dam2.librosvidal;
+package com.proyecto.dam2.librosvidal.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -32,6 +31,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
+import com.proyecto.dam2.librosvidal.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

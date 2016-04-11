@@ -1,7 +1,9 @@
-package com.proyecto.dam2.librosvidal;
+package com.proyecto.dam2.librosvidal.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.proyecto.dam2.librosvidal.R;
 
 public class EditarPerfil extends AppCompatActivity {
 
