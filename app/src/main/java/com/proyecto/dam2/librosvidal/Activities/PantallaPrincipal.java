@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,11 +13,24 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
+import com.proyecto.dam2.librosvidal.Clases.Product;
+import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PantallaPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Context context = this;
+    ListView list;
+    ListView ListViewDetail;
+    ArrayList<Product> listaProd;
 
 
     @Override
@@ -58,6 +72,75 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
                 startActivity(i);
             }
         });
+
+        // CARGAR ELEMENTOS EN EL LIST VIEW
+        listaProd = new ArrayList<>();
+        list=(ListView)findViewById(R.id.list);
+        ListViewDetail = (ListView) findViewById(R.id.list);
+        //Cargar elementos en array de productos
+        obtenirElements();
+        ListViewDetail.setAdapter(new ListViewAdapterProd(context, listaProd));
+    }
+
+    private void obtenirElements() {
+        // --- request all products ---------------------------------------------------------------------------
+        String response = "";
+        HashMap<String,String> postParams = new HashMap<>();
+        postParams.put("action","return_all_products");
+        String url = "http://librosvidal.esy.es/api.php";
+
+        HttpConnection request = new HttpConnection(url, postParams,
+                "login");
+
+        while (!request.isReceived()) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+        response = request.getResponse();
+
+        Log.i("COC", "Login->" + response);
+
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+
+            int id = Integer.valueOf(jsonObject.get("ID").toString());
+            String titol = jsonObject.get("TITOL").toString();
+            String descripcio = jsonObject.get("DESCRIPCIO").toString();
+            double preu = Double.valueOf(jsonObject.get("PREU").toString());
+            boolean peticio;
+            if (jsonObject.get("PETICIO").toString().equals("1")){
+                peticio = true;
+            } else {
+                peticio = false;
+            }
+            boolean venta;
+            if (jsonObject.get("VENTA").toString().equals("1")){
+                venta = true;
+            } else {
+                venta = false;
+            }
+            boolean intercanvi;
+            if (jsonObject.get("INTERCANVI").toString().equals("1")){
+                intercanvi = true;
+            } else {
+                intercanvi = false;
+            }
+            // Crear producte i afegir a la llsita
+            Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi);
+            listaProd.add(producte);
+
+
+
+        } catch (Exception e){
+            System.out.println("Error al pasar a JSON" + e);
+        }
+
+
     }
 
     @Override
