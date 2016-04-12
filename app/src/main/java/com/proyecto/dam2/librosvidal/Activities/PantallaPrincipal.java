@@ -106,33 +106,38 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         try{
             JSONArray jsonArray = new JSONArray(response);
-            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+            for (int i = 0; i<jsonArray.length();i++){
 
-            int id = Integer.valueOf(jsonObject.get("ID").toString());
-            String titol = jsonObject.get("TITOL").toString();
-            String descripcio = jsonObject.get("DESCRIPCIO").toString();
-            double preu = Double.valueOf(jsonObject.get("PREU").toString());
-            boolean peticio;
-            if (jsonObject.get("PETICIO").toString().equals("1")){
-                peticio = true;
-            } else {
-                peticio = false;
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+
+                int id = Integer.valueOf(jsonObject.get("ID").toString());
+                String titol = jsonObject.get("TITOL").toString();
+                String descripcio = jsonObject.get("DESCRIPCIO").toString();
+                double preu = Double.valueOf(jsonObject.get("PREU").toString());
+                boolean peticio;
+                if (jsonObject.get("PETICIO").toString().equals("1")){
+                    peticio = true;
+                } else {
+                    peticio = false;
+                }
+                boolean venta;
+                if (jsonObject.get("VENTA").toString().equals("1")){
+                    venta = true;
+                } else {
+                    venta = false;
+                }
+                boolean intercanvi;
+                if (jsonObject.get("INTERCANVI").toString().equals("1")){
+                    intercanvi = true;
+                } else {
+                    intercanvi = false;
+                }
+                // Crear producte i afegir a la llsita
+                Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi);
+                listaProd.add(producte);
+
             }
-            boolean venta;
-            if (jsonObject.get("VENTA").toString().equals("1")){
-                venta = true;
-            } else {
-                venta = false;
-            }
-            boolean intercanvi;
-            if (jsonObject.get("INTERCANVI").toString().equals("1")){
-                intercanvi = true;
-            } else {
-                intercanvi = false;
-            }
-            // Crear producte i afegir a la llsita
-            Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi);
-            listaProd.add(producte);
+
 
 
 
