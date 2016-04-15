@@ -53,6 +53,7 @@ public class ListViewAdapterProd extends BaseAdapter {
 
         Product currentListProd = getItem(position);
         mViewHolder.titolProd.setText(currentListProd.getTitol());
+        mViewHolder.preuProd.setText(""+currentListProd.getPreu()+"€");
         return convertView;
 
 

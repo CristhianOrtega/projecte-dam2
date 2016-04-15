@@ -16,8 +16,7 @@ import android.view.MenuItem;
 
 import com.proyecto.dam2.librosvidal.R;
 
-public class Buscar extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Buscar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

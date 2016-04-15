@@ -81,4 +81,5 @@
     </string>
     <string name="title_activity_nuevo_producto">NuevoProducto</string>
     <string name="title_activity_buscar">buscar</string>
+    <string name="title_activity_detalle_producto">DetalleProducto</string>
 </resources>
