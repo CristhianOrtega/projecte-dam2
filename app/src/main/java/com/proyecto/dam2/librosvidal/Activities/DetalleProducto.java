@@ -112,8 +112,30 @@ public class DetalleProducto extends AppCompatActivity
                 TextView ventaDet = (TextView) findViewById(R.id.ventaDet);
                 if (venta){
                     ventaDet.setTextSize(20);
-                    ventaDet.setTextColor(getResources().getColor(R.color.colorAccent));
+                    ventaDet.setTextColor(getResources().getColor(R.color.greenActivado));
+                } else {
+                    ventaDet.setTextSize(10);
+                    ventaDet.setTextColor(getResources().getColor(R.color.redNoActivado));
                 }
+
+                TextView intercanviDet = (TextView) findViewById(R.id.intercanviDet);
+                if (intercanvi){
+                    intercanviDet.setTextSize(20);
+                    intercanviDet.setTextColor(getResources().getColor(R.color.greenActivado));
+                } else {
+                    intercanviDet.setTextSize(10);
+                    intercanviDet.setTextColor(getResources().getColor(R.color.redNoActivado));
+                }
+
+                TextView peticioDet = (TextView) findViewById(R.id.peticioDet);
+                if (peticio){
+                    peticioDet.setTextSize(20);
+                    peticioDet.setTextColor(getResources().getColor(R.color.greenActivado));
+                } else {
+                    peticioDet.setTextSize(10);
+                    peticioDet.setTextColor(getResources().getColor(R.color.redNoActivado));
+                }
+
 
             }
 
