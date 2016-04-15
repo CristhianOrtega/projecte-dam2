@@ -338,8 +338,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             Log.i("COC","Login->"+response);
 
-            if (response.equals("true")){ return true; }
-            else{ return false; }
+            if (response.equals("true")){
+                // TODO guardar al shared preferences l'usuari logejat
+                return true;
+            }
+            else{
+                return false;
+            }
 
 
         }
