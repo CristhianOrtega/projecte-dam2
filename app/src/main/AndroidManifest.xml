@@ -40,7 +40,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.Registro_Usuario" />
         <activity android:name=".Activities.EditarPerfil" />
-        <activity android:name=".Activities.VerPerfil"/>
+        <activity android:name=".Activities.VerPerfil" />
+        <activity
+            android:name=".Activities.DetalleProducto"
+            android:label="@string/title_activity_detalle_producto"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
