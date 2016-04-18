@@ -1,11 +1,14 @@
 package com.proyecto.dam2.librosvidal.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,17 +16,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.Image;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 public class NuevoProducto extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private int SELECT_IMAGE = 6452;
     private int TAKE_PICTURE = 4352;
+    private Uri uriImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +104,7 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
             if (requestCode == SELECT_IMAGE)
                 if (resultCode == Activity.RESULT_OK) {
                     Uri selectedImage = data.getData();
-
+                    uriImage = selectedImage;
                     imgPhoto.setImageURI(selectedImage);
                 }
             if(requestCode == TAKE_PICTURE)
@@ -135,5 +148,66 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void enviar (){
+        Context context =  this;
+
+        // TODO obtenir iduser del sharedPreferences.
+
+        EditText inputDescripcio = (EditText) findViewById(R.id.editTextDescripcion);
+        EditText inputTitol = (EditText) findViewById(R.id.editTextNombreProd);
+        EditText inputPreu = (EditText) findViewById(R.id.editTextPrecio);
+
+        CheckBox inputPeticio = (CheckBox) findViewById(R.id.checkPeticion);
+        CheckBox inputVenta = (CheckBox) findViewById(R.id.checkVenta);
+        CheckBox inputIntercanvi = (CheckBox) findViewById(R.id.checkIntercambio);
+
+        ImageButton imgPhoto = (ImageButton) findViewById(R.id.imageButton);
+        Bitmap bitmap =  null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        bitmap = Image.createThumbnail(bitmap);
+        String imatge = Image.imageToString(bitmap);
+        // --- Register new product ----------------------------------------------------------------
+        String response = "";
+        HashMap<String,String> postParams = new HashMap<>();
+        postParams.put("action","new_product");
+        // TODO postParams.put("id_user",idUser);
+        postParams.put("titol",inputTitol.getText().toString());
+        postParams.put("descripcio",inputDescripcio.getText().toString());
+        postParams.put("preu",inputPreu.getText().toString());
+        postParams.put("peticio",inputPeticio.isChecked()+"");
+        postParams.put("venta",inputVenta.isChecked()+"");
+        postParams.put("intercanvi",inputIntercanvi.isChecked()+"");
+        postParams.put("imatge",imatge);
+
+        String url = "http://librosvidal.esy.es/api.php";
+
+        HttpConnection request = new HttpConnection(url, postParams,
+                "login");
+
+        while (!request.isReceived()) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+        response = request.getResponse();
+
+        Log.i("COC", "Register->" + response);
+
+        if (response.equals("true")){
+            Toast.makeText(context, "Producto añadido", Toast.LENGTH_SHORT).show();
+        } else{
+            Toast.makeText(context,"Error al añadir.",Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
