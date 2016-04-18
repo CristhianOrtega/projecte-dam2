@@ -2,9 +2,12 @@ package com.proyecto.dam2.librosvidal.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
@@ -30,10 +34,31 @@ import java.util.HashMap;
 
 public class PantallaPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Context context = this;
-
+    NavigationView navigationView;
     ListView ListViewDetail;
     ArrayList<Product> listaProd;
+    View headerView;
+    SharedPreferences prefs;
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.getMenu().clear();
+
+        if(prefs.getBoolean("login",false)){
+            System.out.println("Entra en login");
+            navigationView.inflateMenu(R.menu.activity_all_drawer_loged);
+            TextView nombreHeader = (TextView ) headerView.findViewById(R.id.nomHeader);
+            TextView correoHeader = (TextView) headerView.findViewById(R.id.correoHeader);
+            nombreHeader.setText(prefs.getString("NOM","Alumno"));
+            correoHeader.setText(prefs.getString("EMAIL","alumne@vidalibarraquer.net"));
+        } else {
+            navigationView.inflateMenu(R.menu.activity_all_drawer);
+        }
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +84,37 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
 
-        //MOSTRAR EL HEADER DEL NAVIGATION
-        View headerView= navigationView.inflateHeaderView(R.layout.nav_header_all);
+        //MOSTRAR EL HEADER Y MENU CORRESPONDIENTE SEGUN LOGIN DEL NAVIGATION
+        //View headerView= navigationView.inflateHeaderView(R.layout.nav_header_all);
+        //View headerView = navigationView.getHeaderView(0);
+
+
+        headerView = LayoutInflater.from(this).inflate(R.layout.nav_header_all, null);
+        navigationView.addHeaderView(headerView);
+
+
+        navigationView.getMenu().clear();
+
+        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+
+        SharedPreferences prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        System.out.println(prefs.getBoolean("login",false));
+        if(prefs.getBoolean("login", false)) {
+            System.out.println("Entra en login");
+            navigationView.inflateMenu(R.menu.activity_all_drawer_loged);
+            TextView nombreHeader = (TextView ) headerView.findViewById(R.id.nomHeader);
+            TextView correoHeader = (TextView) headerView.findViewById(R.id.correoHeader);
+            nombreHeader.setText(prefs.getString("NOM","Alumno"));
+            correoHeader.setText(prefs.getString("EMAIL","alumne@vidalibarraquer.net"));
+        } else {
+            navigationView.inflateMenu(R.menu.activity_all_drawer);
+        }
+
+
 
         //LISTENER DEL NAV HEADER
         headerView.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +248,18 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             Intent i = new Intent(this, LoginActivity.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+        }
+
+        else if (id == R.id.logoutMenu) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("login", false);
+            editor.remove("ID");
+            editor.remove("NOM");
+            editor.remove("EMAIL");
+            editor.remove("IMAGEPERFIL");
+            editor.commit();
+            finish();
+            startActivity(getIntent());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -32,8 +33,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -317,10 +322,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // --- Login ---------------------------------------------------------------------------
             String response = "";
-            HashMap<String,String> postParams = new HashMap<>();
-            postParams.put("action","login");
-            postParams.put("email",mEmail);
-            postParams.put("password",mPassword);
+            HashMap<String, String> postParams = new HashMap<>();
+            postParams.put("action", "login");
+            postParams.put("email", mEmail);
+            postParams.put("password", mPassword);
             String url = "http://librosvidal.esy.es/api.php";
 
             HttpConnection request = new HttpConnection(url, postParams,
@@ -336,12 +341,67 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             response = request.getResponse();
 
-            Log.i("COC","Login->"+response);
-
-            if (response.equals("true")){ return true; }
-            else{ return false; }
 
 
+            Log.i("COC", "Login->" + response);
+
+            SharedPreferences prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+
+            try {
+                System.out.println("ENTRA EN LOGIN");
+                String succes = response.substring(0,1);
+                response = response.substring(1);
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    //RECOGER DATOS USUARIO
+
+                    System.out.println("RECOGE DATOS DE USUARIO");
+                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+
+
+                    int id = Integer.valueOf(jsonObject.get("ID").toString());
+
+
+                    String nom = jsonObject.get("NOM").toString();
+
+
+                    String email = jsonObject.get("EMAIL").toString();
+
+
+                    String image = jsonObject.get("IMAGEPERFIL").toString();
+
+                    if (succes.equals("1")) {
+                        System.out.println("ENTRA EN IF Y CARGA DATOS EN PREFERENCIAS");
+                        editor.putBoolean("login", true);
+                        editor.putInt("ID", id);
+                        editor.putString("NOM", nom);
+                        editor.putString("EMAIL", email);
+                        editor.putString("IMAGEPERFIL", image);
+                        editor.commit();
+
+                        return true;
+
+                    } else {
+                        editor.putBoolean("login", false);
+                        editor.remove("ID");
+                        editor.remove("NOM");
+                        editor.remove("EMAIL");
+                        editor.remove("IMAGEPERFIL");
+                        editor.commit();
+
+                        return false;
+                    }
+
+                }
+
+
+            } catch (Exception e) {
+                System.out.println("Error al pasar a JSON" + e);
+            }
+
+            return false;
         }
 
         @Override
