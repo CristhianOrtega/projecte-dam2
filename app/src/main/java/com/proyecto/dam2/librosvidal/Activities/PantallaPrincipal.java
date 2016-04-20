@@ -202,9 +202,6 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
             }
 
-
-
-
         } catch (Exception e){
             System.out.println("Error al pasar a JSON" + e);
         }
