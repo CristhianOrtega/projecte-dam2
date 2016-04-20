@@ -89,9 +89,6 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener(this);
 
         //MOSTRAR EL HEADER Y MENU CORRESPONDIENTE SEGUN LOGIN DEL NAVIGATION
-        //View headerView= navigationView.inflateHeaderView(R.layout.nav_header_all);
-        //View headerView = navigationView.getHeaderView(0);
-
 
         headerView = LayoutInflater.from(this).inflate(R.layout.nav_header_all, null);
         navigationView.addHeaderView(headerView);
