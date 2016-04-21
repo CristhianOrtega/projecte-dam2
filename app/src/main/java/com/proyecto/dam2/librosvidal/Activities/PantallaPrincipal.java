@@ -119,7 +119,12 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
             //CARGAR IMAGEN!!! ////
             AQuery aq=new AQuery(this); // intsialze aquery
-            aq.id(headerView.findViewById(R.id.imagePerfil)).image("http://librosvidal.esy.es/images/fotoperfil.png", false, false);
+            String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
+            if (ruta.equals("null")){
+                ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
+            }
+            aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
+
 
 
         } else {
