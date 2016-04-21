@@ -117,11 +117,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             nombreHeader.setText(prefs.getString("NOM","Alumno"));
             correoHeader.setText(prefs.getString("EMAIL", "alumne@vidalibarraquer.net"));
 
-            ImageView fotoperfil = (ImageView) headerView.findViewById(R.id.imagePerfil);
-            //// CARGAR IMAGEN /////
-            //new DownloadImageTask((ImageView) headerView.findViewById(R.id.imagePerfil))
-              //      .execute("http://java.sogeti.nl/JavaBlog/wp-content/uploads/2009/04/android_icon_256.png");
-
+            //CARGAR IMAGEN!!! ////
             AQuery aq=new AQuery(this); // intsialze aquery
             aq.id(headerView.findViewById(R.id.imagePerfil)).image("http://librosvidal.esy.es/images/fotoperfil.png", false, false);
 
@@ -282,28 +278,5 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
     }
 
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 }
