@@ -65,7 +65,7 @@ public class EditarPerfil extends AppCompatActivity {
 
 
 
-        Log.i("COC", "Login->" + response);
+        Log.i("COC", "editPerfil -> " + response);
 
 
         editaImatge();
@@ -111,7 +111,7 @@ public class EditarPerfil extends AppCompatActivity {
 
 
 
-        Log.i("COC", "Login->" + response);
+        Log.i("COC", "EditImage -> " + response);
 
 
 
