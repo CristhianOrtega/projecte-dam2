@@ -3,6 +3,9 @@ package com.proyecto.dam2.librosvidal.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -17,10 +20,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidquery.AQuery;
 import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
@@ -29,6 +34,10 @@ import com.proyecto.dam2.librosvidal.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -106,7 +115,17 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             TextView nombreHeader = (TextView ) headerView.findViewById(R.id.nomHeader);
             TextView correoHeader = (TextView) headerView.findViewById(R.id.correoHeader);
             nombreHeader.setText(prefs.getString("NOM","Alumno"));
-            correoHeader.setText(prefs.getString("EMAIL","alumne@vidalibarraquer.net"));
+            correoHeader.setText(prefs.getString("EMAIL", "alumne@vidalibarraquer.net"));
+
+            ImageView fotoperfil = (ImageView) headerView.findViewById(R.id.imagePerfil);
+            //// CARGAR IMAGEN /////
+            //new DownloadImageTask((ImageView) headerView.findViewById(R.id.imagePerfil))
+              //      .execute("http://java.sogeti.nl/JavaBlog/wp-content/uploads/2009/04/android_icon_256.png");
+
+            AQuery aq=new AQuery(this); // intsialze aquery
+            aq.id(headerView.findViewById(R.id.imagePerfil)).image("http://librosvidal.esy.es/images/fotoperfil.png", false, false);
+
+
         } else {
             navigationView.inflateMenu(R.menu.activity_all_drawer);
         }
@@ -251,6 +270,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             editor.remove("NOM");
             editor.remove("EMAIL");
             editor.remove("IMAGEPERFIL");
+            editor.remove("PERFIL");
             editor.commit();
             finish();
             startActivity(getIntent());
@@ -259,5 +279,31 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }
