@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.androidquery.AQuery;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Utils.Image;
@@ -24,6 +25,26 @@ public class EditarPerfil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
+        carregarDadesPerfil();
+    }
+
+    public void carregarDadesPerfil(){
+        // CARREGAR DADES DES DE SHARED PREFERENCES
+        SharedPreferences prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        String nom = prefs.getString("NOM", "");
+        String cognoms = prefs.getString("COGNOMS", "");
+        String email = prefs.getString("EMAIL", "");
+        String perfil = prefs.getString("PERFIL","");
+        String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
+
+
+
+        AQuery aq=new AQuery(this); // intsialze aquery
+        aq.id(findViewById(R.id.editNombrePerfil)).text(nom);
+        aq.id(findViewById(R.id.editApellidosPerfil)).text(cognoms);
+        aq.id(findViewById(R.id.editEmailPerfil)).text(email);
+        aq.id(findViewById(R.id.editDescripcionPerfil)).text(perfil);
+        aq.id(findViewById(R.id.editFotoPerfil)).image(ruta, true, true);
     }
 
 

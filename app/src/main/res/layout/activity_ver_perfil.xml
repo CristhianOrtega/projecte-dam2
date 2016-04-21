@@ -147,7 +147,8 @@
                 android:layout_height="wrap_content"
                 android:text="Editar perfil"
                 android:id="@+id/button2"
-                android:background="@color/White"/>
+                android:background="@color/White"
+                android:onClick="edita" />
         </LinearLayout>
 
     </ScrollView>
