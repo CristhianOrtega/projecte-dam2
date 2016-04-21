@@ -9,14 +9,14 @@
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:id="@+id/fotoPerfil"
+        android:id="@+id/editFotoPerfil"
         android:src="@color/colorAccent"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView2"
-        android:layout_below="@+id/fotoPerfil"
+        android:layout_below="@+id/editFotoPerfil"
         android:layout_alignParentBottom="true"
         android:background="@color/grisFondo">
 
@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="David"
-                    android:id="@+id/nombrePerfil"
+                    android:id="@+id/editNombrePerfil"
                     android:textSize="18sp"
                     android:gravity="right"
                     android:layout_weight="1" />
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Martinez Lopez"
-                    android:id="@+id/apellidosPerfil"
+                    android:id="@+id/editApellidosPerfil"
                     android:textSize="18sp"
                     android:gravity="right"
                     android:layout_weight="1" />
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="alumne@vidalibarraquer.net"
-                    android:id="@+id/emailPerfil"
+                    android:id="@+id/editEmailPerfil"
                     android:textSize="18sp"
                     android:gravity="right"
                     android:layout_weight="1" />
@@ -138,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="dfsfgsfgsgsg sgsgsgsgsgsgsgsgsgsgsgsgsg sgfsdgsdgsdg sgdsdg sg sg"
-                        android:id="@+id/descripcionPerfil"
+                        android:id="@+id/editDescripcionPerfil"
                         android:textSize="18sp"
                         android:gravity="left"
                         android:layout_weight="1" />
