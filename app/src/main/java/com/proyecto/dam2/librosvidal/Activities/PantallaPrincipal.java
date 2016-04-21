@@ -105,8 +105,8 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         navigationView.getMenu().clear();
 
+        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
 
-        SharedPreferences prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
         System.out.println(prefs.getBoolean("login",false));
         if(prefs.getBoolean("login", false)) {
             System.out.println("Entra en login");
