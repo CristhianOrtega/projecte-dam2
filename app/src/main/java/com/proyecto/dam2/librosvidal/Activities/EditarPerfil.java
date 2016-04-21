@@ -34,6 +34,8 @@ public class EditarPerfil extends AppCompatActivity {
         EditText editDescripcion = (EditText) findViewById(R.id.editDescripcionPerfil);
         EditText editEmail = (EditText) findViewById(R.id.editEmailPerfil);
 
+        SharedPreferences prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        int idUser = prefs.getInt("ID", 0);
 
         // --- modify_user_perfil ------------------------------------------------------------------
         String response = "";
@@ -43,6 +45,7 @@ public class EditarPerfil extends AppCompatActivity {
         postParams.put("cognoms", editApellidos.getText().toString());
         postParams.put("nom", editNom.getText().toString());
         postParams.put("perfil", editDescripcion.getText().toString());
+        postParams.put("id_user",String.valueOf(idUser));
 
 
         String url = "http://librosvidal.esy.es/api.php";
