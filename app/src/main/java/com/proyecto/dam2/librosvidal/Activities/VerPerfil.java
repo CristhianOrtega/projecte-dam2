@@ -1,6 +1,7 @@
 package com.proyecto.dam2.librosvidal.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +20,16 @@ public class VerPerfil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_perfil);
+        carregarDadesPerfil();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarDadesPerfil();
+    }
+
+    public void carregarDadesPerfil(){
         // CARREGAR DADES DES DE SHARED PREFERENCES
         SharedPreferences prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
         String nom = prefs.getString("NOM", "");
@@ -36,9 +46,12 @@ public class VerPerfil extends AppCompatActivity {
         aq.id(findViewById(R.id.emailPerfil)).text(email);
         aq.id(findViewById(R.id.descripcionPerfil)).text(perfil);
         aq.id(findViewById(R.id.fotoPerfil)).image(ruta, true, true);
+    }
 
-
-
+    public void edita(View v){
+        Intent intent = new Intent(this, EditarPerfil.class );
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }
