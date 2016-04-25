@@ -1,12 +1,20 @@
 package com.proyecto.dam2.librosvidal.Activities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.androidquery.AQuery;
@@ -20,6 +28,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class EditarPerfil extends AppCompatActivity {
+
+    private int SELECT_IMAGE = 6452;
+    private int TAKE_PICTURE = 4352;
+    private Uri uriImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +60,7 @@ public class EditarPerfil extends AppCompatActivity {
     }
 
 
-    public void editaInfo(){
+    public void editaInfo(View v){
 
         EditText editNom = (EditText) findViewById(R.id.editNombrePerfil);
         EditText editApellidos = (EditText) findViewById(R.id.editApellidosPerfil);
@@ -85,14 +97,70 @@ public class EditarPerfil extends AppCompatActivity {
         response = request.getResponse();
 
 
-
         Log.i("COC", "editPerfil -> " + response);
 
+        if (response.equals("true")){
+            // CARREGAR DADES A SHARED PREFERENCES
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("NOM", editNom.getText().toString());
+            editor.putString("COGNOMS", editApellidos.getText().toString());
+            editor.putString("EMAIL", editEmail.getText().toString());
+            editor.putString("PERFIL", editDescripcion.getText().toString());
+            editaImatge();
+        }
 
-        editaImatge();
 
 
+    }
 
+    public void dialogPhoto (View view){
+        dialogPhoto();
+    }
+
+    private void dialogPhoto(){
+        try{
+            final CharSequence[] items = {"Seleccionar de la galería", "Hacer una foto"};
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Seleccionar una foto");
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    switch(item){
+                        case 0:
+                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                            intent.setType("image/*");
+                            startActivityForResult(intent, SELECT_IMAGE);
+                            break;
+                        case 1:
+                            startActivityForResult(new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE), TAKE_PICTURE);
+                            break;
+                    }
+
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        } catch(Exception e){}
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ImageButton imgPhoto = (ImageButton) findViewById(R.id.imageButton);
+        try{
+            if (requestCode == SELECT_IMAGE)
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri selectedImage = data.getData();
+                    uriImage = selectedImage;
+                    imgPhoto.setImageURI(selectedImage);
+                }
+            if(requestCode == TAKE_PICTURE)
+                if(resultCode == Activity.RESULT_OK){
+                    Uri selectedImage = data.getData();
+
+                    imgPhoto.setImageURI(selectedImage);
+                }
+        } catch(Exception e){}
     }
 
 
@@ -100,9 +168,10 @@ public class EditarPerfil extends AppCompatActivity {
 
         // --- modify_user_image -------------------------------------------------------------------
 
-        ImageView img = (ImageView) findViewById(R.id.editFotoPerfil);
-        img.buildDrawingCache();
-        Bitmap bmap = img.getDrawingCache();
+        ImageButton img = (ImageButton) findViewById(R.id.editFotoPerfil);
+
+        Bitmap bmap = ((BitmapDrawable)img.getDrawable()).getBitmap();
+
         bmap = Image.createThumbnail(bmap);
         String stringImatge = Image.imageToString(bmap);
 
@@ -135,7 +204,13 @@ public class EditarPerfil extends AppCompatActivity {
         Log.i("COC", "EditImage -> " + response);
 
 
+        if (response.equals("true")){
 
+            Intent intent = new Intent(this, VerPerfil.class );
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
+        }
 
     }
 }
