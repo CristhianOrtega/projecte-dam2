@@ -166,6 +166,7 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
         CheckBox inputIntercanvi = (CheckBox) findViewById(R.id.checkIntercambio);
 
         ImageButton imgPhoto = (ImageButton) findViewById(R.id.imageButton);
+
         Bitmap bitmap =  null;
         try {
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriImage);
