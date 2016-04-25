@@ -106,6 +106,7 @@ public class EditarPerfil extends AppCompatActivity {
             editor.putString("COGNOMS", editApellidos.getText().toString());
             editor.putString("EMAIL", editEmail.getText().toString());
             editor.putString("PERFIL", editDescripcion.getText().toString());
+            editor.commit();
             editaImatge();
         }
 
