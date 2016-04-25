@@ -142,7 +142,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Publicar producto"
-                android:id="@+id/ButtonPublicar" />
+                android:id="@+id/ButtonPublicar"
+                android:onClick="enviar" />
 
 
         </LinearLayout>
