@@ -30,6 +30,7 @@ public class VerPerfil extends AppCompatActivity {
     }
 
     public void carregarDadesPerfil(){
+
         // CARREGAR DADES DES DE SHARED PREFERENCES
         SharedPreferences prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
         String nom = prefs.getString("NOM", "");
@@ -49,9 +50,11 @@ public class VerPerfil extends AppCompatActivity {
     }
 
     public void edita(View v){
+
         Intent intent = new Intent(this, EditarPerfil.class );
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+
     }
 
 }
