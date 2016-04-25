@@ -63,7 +63,7 @@ public class SplashScreen extends Activity {
              * 5. etc.,
              */
 
-            //CONSULTA Y CREACION DE ARRAY AQUI
+
 
             // --- request all products ---------------------------------------------------------------------------
             String response = "";
