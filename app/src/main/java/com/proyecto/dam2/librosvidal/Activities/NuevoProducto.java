@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -150,10 +151,11 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
-    public void enviar (){
+    public void enviar (View view){
         Context context =  this;
 
-        // TODO obtenir iduser del sharedPreferences.
+        SharedPreferences prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        int id = prefs.getInt("ID",0);
 
         EditText inputDescripcio = (EditText) findViewById(R.id.editTextDescripcion);
         EditText inputTitol = (EditText) findViewById(R.id.editTextNombreProd);
@@ -177,7 +179,7 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
         String response = "";
         HashMap<String,String> postParams = new HashMap<>();
         postParams.put("action","new_product");
-        // TODO postParams.put("id_user",idUser);
+        postParams.put("id_user",id+"");
         postParams.put("titol",inputTitol.getText().toString());
         postParams.put("descripcio",inputDescripcio.getText().toString());
         postParams.put("preu",inputPreu.getText().toString());
