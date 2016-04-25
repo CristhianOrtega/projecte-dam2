@@ -1,5 +1,7 @@
 package com.proyecto.dam2.librosvidal.Activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,10 +29,21 @@ import java.util.HashMap;
 public class DetalleProducto extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalle_producto);
+
+        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        String rol = prefs.getString("ROL", "usuari");
+        System.out.println("ROL: " + rol);
+        if (rol.equals("admin")){
+            setContentView(R.layout.activity_detalle_producto_admin);
+        } else {
+            setContentView(R.layout.activity_detalle_producto);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,6 +81,7 @@ public class DetalleProducto extends AppCompatActivity
 
         Log.i("COC", "Login->" + response);
 
+        // CONSULTA DE PRODUCTO + CAMBIAR VISTA DE PRODUCTOS
         try{
             JSONArray jsonArray = new JSONArray(response);
             for (int i = 0; i<jsonArray.length();i++){

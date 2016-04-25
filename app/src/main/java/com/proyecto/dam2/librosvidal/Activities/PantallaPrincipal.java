@@ -187,6 +187,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         Log.i("COC", "Login->" + response);
 
+        //RECOLLIR DADES DELS PRODUCTES I AFEGIR-LOS AL ARRAY DE PRODUCTES
         try{
             JSONArray jsonArray = new JSONArray(response);
             for (int i = 0; i<jsonArray.length();i++){
@@ -215,9 +216,21 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
                 } else {
                     intercanvi = false;
                 }
+
+                boolean venut;
+                if (jsonObject.get("VENUT").toString().equals("1")){
+                    venut = true;
+                } else {
+                    venut = false;
+                }
+
                 // Crear producte i afegir a la llsita
-                Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi);
-                listaProd.add(producte);
+                if (!venut){
+                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi);
+                    listaProd.add(producte);
+                }
+
+
 
             }
 
@@ -271,6 +284,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             editor.remove("EMAIL");
             editor.remove("IMAGEPERFIL");
             editor.remove("PERFIL");
+            editor.remove("ROL");
             editor.commit();
             finish();
             startActivity(getIntent());
