@@ -22,11 +22,11 @@
             android:name=".Activities.PantallaPrincipal"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".Activities.Configuracion"
@@ -49,6 +49,20 @@
             android:name=".Activities.DetalleProducto"
             android:label="@string/title_activity_detalle_producto"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
+        <!-- Splash screen -->
+        <activity
+            android:name="com.proyecto.dam2.librosvidal.Activities.SplashScreen"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -2,10 +2,12 @@ package com.proyecto.dam2.librosvidal.Clases;
 
 import android.widget.ImageView;
 
+import java.io.Serializable;
+
 /**
  * Created by david on 11/4/16.
  */
-public class Product {
+public class Product implements Serializable{
     int id;
     String titol;
     String descripcio;

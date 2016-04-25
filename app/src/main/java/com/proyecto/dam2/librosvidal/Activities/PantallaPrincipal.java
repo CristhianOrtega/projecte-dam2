@@ -143,10 +143,9 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         });
 
         // CARGAR ELEMENTOS EN EL LIST VIEW
-        listaProd = new ArrayList<>();
+        listaProd = (ArrayList<Product> )getIntent().getSerializableExtra("lista");
+        System.out.println("En la lista hay: " + listaProd.size());
         ListViewDetail = (ListView) findViewById(R.id.list);
-        //Cargar elementos en array de productos
-        obtenirElements();
 
         ListViewDetail.setAdapter(new ListViewAdapterProd(context, listaProd));
 
@@ -162,82 +161,6 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
                 startActivity(i);
             }
         });
-
-    }
-
-    private void obtenirElements() {
-        // --- request all products ---------------------------------------------------------------------------
-        String response = "";
-        HashMap<String,String> postParams = new HashMap<>();
-        postParams.put("action","return_all_products");
-        String url = "http://librosvidal.esy.es/api.php";
-
-        HttpConnection request = new HttpConnection(url, postParams,
-                "login");
-
-        while (!request.isReceived()) {
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException e) {
-
-            }
-        }
-
-        response = request.getResponse();
-
-        Log.i("COC", "Login->" + response);
-
-        //RECOLLIR DADES DELS PRODUCTES I AFEGIR-LOS AL ARRAY DE PRODUCTES
-        try{
-            JSONArray jsonArray = new JSONArray(response);
-            for (int i = 0; i<jsonArray.length();i++){
-
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-
-                int id = Integer.valueOf(jsonObject.get("ID").toString());
-                String titol = jsonObject.get("TITOL").toString();
-                String descripcio = jsonObject.get("DESCRIPCIO").toString();
-                double preu = Double.valueOf(jsonObject.get("PREU").toString());
-                boolean peticio;
-                if (jsonObject.get("PETICIO").toString().equals("1")){
-                    peticio = true;
-                } else {
-                    peticio = false;
-                }
-                boolean venta;
-                if (jsonObject.get("VENTA").toString().equals("1")){
-                    venta = true;
-                } else {
-                    venta = false;
-                }
-                boolean intercanvi;
-                if (jsonObject.get("INTERCANVI").toString().equals("1")){
-                    intercanvi = true;
-                } else {
-                    intercanvi = false;
-                }
-
-                boolean venut;
-                if (jsonObject.get("VENUT").toString().equals("1")){
-                    venut = true;
-                } else {
-                    venut = false;
-                }
-
-                // Crear producte i afegir a la llsita
-                if (!venut){
-                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi);
-                    listaProd.add(producte);
-                }
-
-
-
-            }
-
-        } catch (Exception e){
-            System.out.println("Error al pasar a JSON" + e);
-        }
-
 
     }
 
