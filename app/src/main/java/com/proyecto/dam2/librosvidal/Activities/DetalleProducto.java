@@ -1,6 +1,7 @@
 package com.proyecto.dam2.librosvidal.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -192,6 +193,12 @@ public class DetalleProducto extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void editarProd(View view){
+        Intent i = new Intent(this, EditarProd.class );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

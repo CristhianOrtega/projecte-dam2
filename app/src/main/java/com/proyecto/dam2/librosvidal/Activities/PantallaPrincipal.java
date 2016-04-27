@@ -57,17 +57,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
     protected void onResume() {
         super.onResume();
         navigationView.getMenu().clear();
-
-        if(prefs.getBoolean("login",false)){
-            System.out.println("Entra en login");
-            navigationView.inflateMenu(R.menu.activity_all_drawer_loged);
-            TextView nombreHeader = (TextView ) headerView.findViewById(R.id.nomHeader);
-            TextView correoHeader = (TextView) headerView.findViewById(R.id.correoHeader);
-            nombreHeader.setText(prefs.getString("NOM","Alumno"));
-            correoHeader.setText(prefs.getString("EMAIL","alumne@vidalibarraquer.net"));
-        } else {
-            navigationView.inflateMenu(R.menu.activity_all_drawer);
-        }
+        cargaPreferenciasUser();
 
 
     }
@@ -108,30 +98,8 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         navigationView.getMenu().clear();
 
-        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
-
-        System.out.println(prefs.getBoolean("login",false));
-        if(prefs.getBoolean("login", false)) {
-            System.out.println("Entra en login");
-            navigationView.inflateMenu(R.menu.activity_all_drawer_loged);
-            TextView nombreHeader = (TextView ) headerView.findViewById(R.id.nomHeader);
-            TextView correoHeader = (TextView) headerView.findViewById(R.id.correoHeader);
-            nombreHeader.setText(prefs.getString("NOM","Alumno"));
-            correoHeader.setText(prefs.getString("EMAIL", "alumne@vidalibarraquer.net"));
-
-            //CARGAR IMAGEN!!! ////
-            AQuery aq=new AQuery(this); // intsialze aquery
-            String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
-            if (ruta.equals("null")){
-                ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
-            }
-            aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
-
-
-
-        } else {
-            navigationView.inflateMenu(R.menu.activity_all_drawer);
-        }
+        //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
+        cargaPreferenciasUser();
 
 
 
@@ -139,9 +107,11 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, VerPerfil.class );
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                if(prefs.getBoolean("login", false)) {
+                    Intent i = new Intent(context, VerPerfil.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
             }
         });
 
@@ -166,22 +136,9 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             }
         });
 
+        //Showing Swipe Refresh animation on activity create
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
-
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-        /*swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
-
-                                        fetchMovies();
-                                    }
-                                }
-        );*/
 
     }
 
@@ -324,6 +281,34 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void cargaPreferenciasUser (){
+
+        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+
+        System.out.println(prefs.getBoolean("login",false));
+        if(prefs.getBoolean("login", false)) {
+            System.out.println("Entra en login");
+            navigationView.inflateMenu(R.menu.activity_all_drawer_loged);
+            TextView nombreHeader = (TextView ) headerView.findViewById(R.id.nomHeader);
+            TextView correoHeader = (TextView) headerView.findViewById(R.id.correoHeader);
+            nombreHeader.setText(prefs.getString("NOM","Alumno"));
+            correoHeader.setText(prefs.getString("EMAIL", "alumne@vidalibarraquer.net"));
+
+            //CARGAR IMAGEN!!! ////
+            AQuery aq=new AQuery(this); // intsialze aquery
+            String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
+            if (ruta.equals("null")){
+                ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
+            }
+            aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
+
+
+
+        } else {
+            navigationView.inflateMenu(R.menu.activity_all_drawer);
+        }
     }
 
 
