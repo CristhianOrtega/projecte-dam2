@@ -131,7 +131,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
                 int idProdClick = listaProd.get(position).getId();
                 Intent i = new Intent(context, DetalleProducto.class );
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.putExtra("ID",idProdClick);
+                i.putExtra("Producte",listaProd.get(position));
                 startActivity(i);
             }
         });
@@ -269,6 +269,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             editor.putBoolean("login", false);
             editor.remove("ID");
             editor.remove("NOM");
+            editor.remove("COGNOMS");
             editor.remove("EMAIL");
             editor.remove("IMAGEPERFIL");
             editor.remove("PERFIL");
@@ -310,7 +311,4 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             navigationView.inflateMenu(R.menu.activity_all_drawer);
         }
     }
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.proyecto.dam2.librosvidal.Clases;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ public class Product implements Serializable{
     String titol;
     String descripcio;
     double preu;
-    ImageView foto;
+    String foto;
     boolean peticio;
     boolean venta;
     boolean intercanvi;
@@ -60,11 +61,11 @@ public class Product implements Serializable{
         this.preu = preu;
     }
 
-    public ImageView getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(ImageView foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 

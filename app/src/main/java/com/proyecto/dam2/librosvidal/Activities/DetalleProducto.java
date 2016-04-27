@@ -31,11 +31,11 @@ public class DetalleProducto extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SharedPreferences prefs;
+    Product producte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
         String rol = prefs.getString("ROL", "usuari");
         System.out.println("ROL: " + rol);
@@ -58,110 +58,52 @@ public class DetalleProducto extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //RECOLLIR ID SELECCIONADA
-        int idProd = getIntent().getExtras().getInt("ID");
+        //RECOLLIR PROD SELECCIONAT
+        producte = (Product)getIntent().getSerializableExtra("Producte");
 
-        //POST AL SERVIDOR PER RETORNAR EL PRODUCTE SELECCIONAT
-        HashMap<String,String> postParams = new HashMap<>();
-        postParams.put("action","return_one_product");
-        postParams.put("id_product",""+idProd);
-        String url = "http://librosvidal.esy.es/api.php";
 
-        HttpConnection request = new HttpConnection(url, postParams,
-                "login");
+        //Asignar valores al layout
 
-        while (!request.isReceived()) {
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException e) {
+        TextView tituloDet = (TextView) findViewById(R.id.titulodet);
+        tituloDet.setText(producte.getTitol());
 
-            }
+        TextView precioDet = (TextView) findViewById(R.id.PreuDet);
+        precioDet.setText(producte.getPreu()+"€");
+
+        TextView descripcionDet = (TextView) findViewById(R.id.DescripcioDet);
+        descripcionDet.setText(producte.getDescripcio());
+
+        TextView ventaDet = (TextView) findViewById(R.id.ventaDet);
+        if (producte.isVenta()){
+            ventaDet.setTextSize(20);
+            ventaDet.setTextColor(getResources().getColor(R.color.greenActivado));
+        } else {
+            ventaDet.setTextSize(10);
+            ventaDet.setTextColor(getResources().getColor(R.color.redNoActivado));
         }
 
-        String response = request.getResponse();
-
-        Log.i("COC", "Login->" + response);
-
-        // CONSULTA DE PRODUCTO + CAMBIAR VISTA DE PRODUCTOS
-        try{
-            JSONArray jsonArray = new JSONArray(response);
-            for (int i = 0; i<jsonArray.length();i++){
-
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-
-                int id = Integer.valueOf(jsonObject.get("ID").toString());
-                String titol = jsonObject.get("TITOL").toString();
-                String descripcio = jsonObject.get("DESCRIPCIO").toString();
-                double preu = Double.valueOf(jsonObject.get("PREU").toString());
-                boolean peticio;
-                if (jsonObject.get("PETICIO").toString().equals("1")){
-                    peticio = true;
-                } else {
-                    peticio = false;
-                }
-                boolean venta;
-                if (jsonObject.get("VENTA").toString().equals("1")){
-                    venta = true;
-                } else {
-                    venta = false;
-                }
-                boolean intercanvi;
-                if (jsonObject.get("INTERCANVI").toString().equals("1")){
-                    intercanvi = true;
-                } else {
-                    intercanvi = false;
-                }
-
-
-                //Asignar valores al layout
-
-                TextView tituloDet = (TextView) findViewById(R.id.titulodet);
-                tituloDet.setText(titol);
-
-                TextView precioDet = (TextView) findViewById(R.id.PreuDet);
-                precioDet.setText(preu+"€");
-
-                TextView descripcionDet = (TextView) findViewById(R.id.DescripcioDet);
-                descripcionDet.setText(descripcio);
-
-                TextView ventaDet = (TextView) findViewById(R.id.ventaDet);
-                if (venta){
-                    ventaDet.setTextSize(20);
-                    ventaDet.setTextColor(getResources().getColor(R.color.greenActivado));
-                } else {
-                    ventaDet.setTextSize(10);
-                    ventaDet.setTextColor(getResources().getColor(R.color.redNoActivado));
-                }
-
-                TextView intercanviDet = (TextView) findViewById(R.id.intercanviDet);
-                if (intercanvi){
-                    intercanviDet.setTextSize(20);
-                    intercanviDet.setTextColor(getResources().getColor(R.color.greenActivado));
-                } else {
-                    intercanviDet.setTextSize(10);
-                    intercanviDet.setTextColor(getResources().getColor(R.color.redNoActivado));
-                }
-
-                TextView peticioDet = (TextView) findViewById(R.id.peticioDet);
-                if (peticio){
-                    peticioDet.setTextSize(20);
-                    peticioDet.setTextColor(getResources().getColor(R.color.greenActivado));
-                } else {
-                    peticioDet.setTextSize(10);
-                    peticioDet.setTextColor(getResources().getColor(R.color.redNoActivado));
-                }
-
-
-            }
-
-
-
-
-        } catch (Exception e){
-            System.out.println("Error al pasar a JSON" + e);
+        TextView intercanviDet = (TextView) findViewById(R.id.intercanviDet);
+        if (producte.isIntercanvi()){
+            intercanviDet.setTextSize(20);
+            intercanviDet.setTextColor(getResources().getColor(R.color.greenActivado));
+        } else {
+            intercanviDet.setTextSize(10);
+            intercanviDet.setTextColor(getResources().getColor(R.color.redNoActivado));
         }
+
+        TextView peticioDet = (TextView) findViewById(R.id.peticioDet);
+        if (producte.isPeticio()){
+            peticioDet.setTextSize(20);
+            peticioDet.setTextColor(getResources().getColor(R.color.greenActivado));
+        } else {
+            peticioDet.setTextSize(10);
+            peticioDet.setTextColor(getResources().getColor(R.color.redNoActivado));
+        }
+
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -198,6 +140,7 @@ public class DetalleProducto extends AppCompatActivity
     public void editarProd(View view){
         Intent i = new Intent(this, EditarProd.class );
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("Producte",producte);
         startActivity(i);
     }
 
