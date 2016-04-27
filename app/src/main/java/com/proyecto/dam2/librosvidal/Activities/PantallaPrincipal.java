@@ -167,7 +167,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         });
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) this);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         /**
          * Showing Swipe Refresh animation on activity create
@@ -258,6 +258,10 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
                 }
 
             }
+
+            //Actualizar lista
+            adapter = new ListViewAdapterProd(this, listaProd);
+            ListViewDetail.setAdapter(adapter);
 
             // stopping swipe refresh
             swipeRefreshLayout.setRefreshing(false);
