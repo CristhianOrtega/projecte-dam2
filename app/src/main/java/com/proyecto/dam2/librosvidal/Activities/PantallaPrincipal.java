@@ -91,16 +91,11 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener(this);
 
         //MOSTRAR EL HEADER Y MENU CORRESPONDIENTE SEGUN LOGIN DEL NAVIGATION
-
         headerView = LayoutInflater.from(this).inflate(R.layout.nav_header_all, null);
         navigationView.addHeaderView(headerView);
-
-
         navigationView.getMenu().clear();
-
         //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
         cargaPreferenciasUser();
-
 
 
         //LISTENER DEL NAV HEADER
@@ -304,8 +299,6 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
                 ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
             }
             aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
-
-
 
         } else {
             navigationView.inflateMenu(R.menu.activity_all_drawer);
