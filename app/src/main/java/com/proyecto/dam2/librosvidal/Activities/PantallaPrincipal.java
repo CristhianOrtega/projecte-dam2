@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -32,6 +33,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.androidquery.callback.BitmapAjaxCallback;
 import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
@@ -301,13 +305,28 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             //CARGAR IMAGEN!!! ////
             AQuery aq=new AQuery(this); // intsialze aquery
             String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
+
             if (ruta.equals("null")){
                 ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
             }
+
+            System.out.println("La ruta de la imatge es: " + ruta);
             //aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
             Bitmap bitmap = aq.getCachedImage(ruta);
+            ImageView fotoPerfil = (ImageView) headerView.findViewById(R.id.imagePerfil);;
 
-            Bitmap recortado = Image.cropBitmap(bitmap,250,250);
+            if (bitmap == null){
+                aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
+                System.out.println("ENTRA!!!!");
+                fotoPerfil = (ImageView) headerView.findViewById(R.id.imagePerfil);
+                System.out.println(fotoPerfil);
+                bitmap = ((BitmapDrawable)fotoPerfil.getDrawable()).getBitmap();
+            }
+
+
+            System.out.println("El bitmap es: " + bitmap);
+
+            Bitmap recortado = Image.cropBitmap(bitmap, 250, 250);
             Bitmap circleBitmap = Bitmap.createBitmap(recortado.getWidth(), recortado.getHeight(), Bitmap.Config.ARGB_8888);
 
             BitmapShader shader = new BitmapShader(recortado,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
@@ -317,7 +336,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             Canvas c = new Canvas(circleBitmap);
             c.drawCircle(recortado.getWidth() / 2, recortado.getHeight() / 2, recortado.getWidth() / 2, paint);
 
-            ImageView fotoPerfil = (ImageView) headerView.findViewById(R.id.imagePerfil);
+
 
             fotoPerfil.setImageBitmap(circleBitmap);
 
