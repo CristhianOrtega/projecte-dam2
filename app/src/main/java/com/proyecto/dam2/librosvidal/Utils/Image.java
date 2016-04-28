@@ -27,6 +27,7 @@ public class Image {
 
 
     public static String imageToString (Bitmap bitmap){
+
         ByteArrayOutputStream baos=new  ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
         byte [] b=baos.toByteArray();
