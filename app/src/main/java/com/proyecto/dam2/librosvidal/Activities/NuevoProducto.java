@@ -111,18 +111,10 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
             if(requestCode == TAKE_PICTURE)
                 if(resultCode == Activity.RESULT_OK){
                     Uri selectedImage = data.getData();
-
+                    uriImage = selectedImage;
                     imgPhoto.setImageURI(selectedImage);
                 }
         } catch(Exception e){}
-    }
-
-    private String getPath(Uri uri) {
-        String[] projection = { android.provider.MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(android.provider.MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
     }
 
 

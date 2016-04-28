@@ -159,7 +159,6 @@ public class EditarPerfil extends AppCompatActivity {
         response = request.getResponse();
 
 
-
         Log.i("COC", "EditImage -> " + response);
 
 
@@ -217,7 +216,7 @@ public class EditarPerfil extends AppCompatActivity {
             if(requestCode == TAKE_PICTURE)
                 if(resultCode == Activity.RESULT_OK){
                     Uri selectedImage = data.getData();
-
+                    uriImage = selectedImage;
                     imgPhoto.setImageURI(selectedImage);
                 }
         } catch(Exception e){}
