@@ -5,6 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Shader;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +36,7 @@ import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.Image;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -283,7 +289,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
 
-        System.out.println(prefs.getBoolean("login",false));
+        System.out.println(prefs.getBoolean("login", false));
         if(prefs.getBoolean("login", false)) {
             System.out.println("Entra en login");
             navigationView.inflateMenu(R.menu.activity_all_drawer_loged);
@@ -298,10 +304,27 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             if (ruta.equals("null")){
                 ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
             }
-            aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
+            //aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
+            Bitmap bitmap = aq.getCachedImage(ruta);
+
+            Bitmap recortado = Image.cropBitmap(bitmap,250,250);
+            Bitmap circleBitmap = Bitmap.createBitmap(recortado.getWidth(), recortado.getHeight(), Bitmap.Config.ARGB_8888);
+
+            BitmapShader shader = new BitmapShader(recortado,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            Paint paint = new Paint();
+            paint.setShader(shader);
+
+            Canvas c = new Canvas(circleBitmap);
+            c.drawCircle(recortado.getWidth() / 2, recortado.getHeight() / 2, recortado.getWidth() / 2, paint);
+
+            ImageView fotoPerfil = (ImageView) headerView.findViewById(R.id.imagePerfil);
+
+            fotoPerfil.setImageBitmap(circleBitmap);
 
         } else {
             navigationView.inflateMenu(R.menu.activity_all_drawer);
         }
     }
+
+
 }
