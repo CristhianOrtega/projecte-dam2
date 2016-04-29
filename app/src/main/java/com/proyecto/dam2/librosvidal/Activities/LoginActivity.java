@@ -380,6 +380,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     String cognoms = jsonObject.get("COGNOMS").toString();
 
+                    String stringimage = jsonObject.get("STRINGIMAGE").toString();
+
+
 
                     if (succes.equals("1")) {
                         System.out.println("ENTRA EN IF Y CARGA DATOS EN PREFERENCIAS");
@@ -391,6 +394,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         editor.putString("ROL", rol);
                         editor.putString("IMAGEPERFIL", image);
                         editor.putString("PERFIL", perfil);
+                        editor.putString("STRINGIMAGE", stringimage);
                         editor.commit();
 
                         return true;

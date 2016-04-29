@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,6 +48,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -67,8 +69,8 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
     protected void onResume() {
         super.onResume();
         navigationView.getMenu().clear();
+        System.out.println("Entra desde onResume");
         cargaPreferenciasUser();
-
 
     }
 
@@ -105,6 +107,8 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         navigationView.addHeaderView(headerView);
         navigationView.getMenu().clear();
         //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
+
+        System.out.println("Entra desde OnCreate");
         cargaPreferenciasUser();
 
 
@@ -279,6 +283,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             editor.remove("IMAGEPERFIL");
             editor.remove("PERFIL");
             editor.remove("ROL");
+            editor.remove("STRINGIMAGE");
             editor.commit();
             finish();
             startActivity(getIntent());
@@ -303,28 +308,12 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             correoHeader.setText(prefs.getString("EMAIL", "alumne@vidalibarraquer.net"));
 
             //CARGAR IMAGEN!!! ////
-            AQuery aq=new AQuery(this); // intsialze aquery
-            String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
-
-            if (ruta.equals("null")){
-                ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
-            }
-
-            System.out.println("La ruta de la imatge es: " + ruta);
-            //aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
-            Bitmap bitmap = aq.getCachedImage(ruta);
-            ImageView fotoPerfil = (ImageView) headerView.findViewById(R.id.imagePerfil);;
-
-            if (bitmap == null){
-                aq.id(headerView.findViewById(R.id.imagePerfil)).image(ruta, true, true);
-                System.out.println("ENTRA!!!!");
-                fotoPerfil = (ImageView) headerView.findViewById(R.id.imagePerfil);
-                System.out.println(fotoPerfil);
-                bitmap = ((BitmapDrawable)fotoPerfil.getDrawable()).getBitmap();
-            }
-
+            Bitmap bitmap = Image.decodeString(prefs.getString("STRINGIMAGE", "null"));
 
             System.out.println("El bitmap es: " + bitmap);
+
+            ImageView fotoPerfil = (ImageView) headerView.findViewById(R.id.imagePerfil);
+            fotoPerfil.setImageBitmap(bitmap);
 
             Bitmap recortado = Image.cropBitmap(bitmap, 250, 250);
             Bitmap circleBitmap = Bitmap.createBitmap(recortado.getWidth(), recortado.getHeight(), Bitmap.Config.ARGB_8888);
