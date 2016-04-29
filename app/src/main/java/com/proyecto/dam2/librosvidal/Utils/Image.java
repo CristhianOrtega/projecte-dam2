@@ -37,6 +37,12 @@ public class Image {
         return temp;
     }
 
+    public static Bitmap decodeString(String stringimage){
+        byte[] decodedString = Base64.decode(stringimage, Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return bitmap;
+    }
+
     public static Bitmap cropBitmap(Bitmap original, int height, int width) {
         Bitmap croppedImage = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(croppedImage);

@@ -108,8 +108,9 @@ public class EditarPerfil extends AppCompatActivity {
             editor.putString("COGNOMS", editApellidos.getText().toString());
             editor.putString("EMAIL", editEmail.getText().toString());
             editor.putString("PERFIL", editDescripcion.getText().toString());
+            String strignimage = editaImatge();
+            editor.putString("STRINGIMAGE", strignimage);
             editor.commit();
-            editaImatge();
         }
 
 
@@ -117,7 +118,7 @@ public class EditarPerfil extends AppCompatActivity {
     }
 
 
-    public void editaImatge(){
+    public String editaImatge(){
 
         // --- modify_user_image -------------------------------------------------------------------
 
@@ -169,6 +170,8 @@ public class EditarPerfil extends AppCompatActivity {
             startActivity(intent);
 
         }
+
+        return stringImatge;
 
     }
 
