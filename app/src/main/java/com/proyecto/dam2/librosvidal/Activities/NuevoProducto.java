@@ -196,10 +196,13 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
 
         response = request.getResponse();
 
-        Log.i("COC", "Register->" + response);
+        Log.i("COC", "New product added ->" + response);
 
         if (response.equals("true")){
             Toast.makeText(context, "Producto añadido", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(context, Registro_Usuario.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
         } else{
             Toast.makeText(context,"Error al añadir.",Toast.LENGTH_SHORT).show();
         }
