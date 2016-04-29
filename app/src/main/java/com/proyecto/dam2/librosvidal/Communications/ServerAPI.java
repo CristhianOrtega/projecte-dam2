@@ -2,6 +2,10 @@ package com.proyecto.dam2.librosvidal.Communications;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -33,6 +37,15 @@ public class ServerAPI {
         response = request.getResponse();
 
         Log.i("COC", "GetProduct Image->" + response);
+
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+            String ruta = jsonObject.get("RUTA").toString();
+            image = ruta;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return image;
     }
