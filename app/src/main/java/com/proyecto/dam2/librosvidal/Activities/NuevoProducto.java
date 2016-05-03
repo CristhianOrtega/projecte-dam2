@@ -159,8 +159,8 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
 
         ImageButton imgPhoto = (ImageButton) findViewById(R.id.imageButton);
 
-        if (uriImage.equals(null)){
-            Toast.makeText(context,"Has d'inserir una imatge",Toast.LENGTH_SHORT).show();
+        if (uriImage == null){
+            Toast.makeText(context,"Tienes que inserir una imagen",Toast.LENGTH_SHORT).show();
         }else {
 
             Bitmap bitmap = null;
@@ -172,6 +172,8 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
 
             bitmap = Image.createThumbnail(bitmap);
             String imatge = Image.imageToString(bitmap);
+
+
             // --- Register new product ----------------------------------------------------------------
             String response = "";
             HashMap<String, String> postParams = new HashMap<>();

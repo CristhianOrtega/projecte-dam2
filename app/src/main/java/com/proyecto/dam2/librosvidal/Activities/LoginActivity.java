@@ -328,9 +328,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             postParams.put("password", mPassword);
             String url = "http://librosvidal.esy.es/api.php";
 
+            // llença POST
             HttpConnection request = new HttpConnection(url, postParams,
                     "login");
 
+            // esperar resposta per part del server
             while (!request.isReceived()) {
                 try {
                     Thread.sleep(250);
