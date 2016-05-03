@@ -19,7 +19,7 @@ public class Product implements Serializable{
     boolean intercanvi;
 
 
-    public Product(int id, String titol, String descripcio, double preu, boolean peticio, boolean venta, boolean intercanvi) {
+    public Product(int id, String titol, String descripcio, double preu, boolean peticio, boolean venta, boolean intercanvi, String foto) {
         this.id = id;
         this.titol = titol;
         this.descripcio = descripcio;
@@ -27,6 +27,7 @@ public class Product implements Serializable{
         this.peticio = peticio;
         this.venta = venta;
         this.intercanvi = intercanvi;
+        this.foto = foto;
     }
 
     public int getId() {

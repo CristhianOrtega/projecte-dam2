@@ -7,15 +7,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
+import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.R;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -125,8 +124,11 @@ public class SplashScreen extends Activity {
                     }
 
                     // Crear producte i afegir a la llsita
+                    String image = ServerAPI.getProductImage("" + id);
+                    image = "" + image;
+                    System.out.println(image);
                     if (!venut){
-                        Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi);
+                        Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi, image);
                         listaProd.add(producte);
                     }
 

@@ -40,6 +40,7 @@ import com.androidquery.callback.BitmapAjaxCallback;
 import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
+import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Utils.Image;
 
@@ -217,9 +218,14 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
                     venut = false;
                 }
 
+                String image = ServerAPI.getProductImage(""+id);
+                image = "" + image;
+                System.out.println(image);
+
+
                 // Crear producte i afegir a la llsita
                 if (!venut){
-                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi);
+                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi,image);
                     listaProd.add(producte);
                 }
 

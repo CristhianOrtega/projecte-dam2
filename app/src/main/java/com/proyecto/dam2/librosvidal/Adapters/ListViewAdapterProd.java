@@ -8,11 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
+
+import com.androidquery.AQuery;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.R;
 
 public class ListViewAdapterProd extends BaseAdapter {
-
     static ArrayList<Product> myList = new ArrayList<Product>();
     LayoutInflater inflater;
     Context context;
@@ -54,6 +55,9 @@ public class ListViewAdapterProd extends BaseAdapter {
         Product currentListProd = getItem(position);
         mViewHolder.titolProd.setText(currentListProd.getTitol());
         mViewHolder.preuProd.setText(""+currentListProd.getPreu()+"€");
+        mViewHolder.aq.id(convertView.findViewById(R.id.fotoPrin)).image(currentListProd.getFoto(), true, true);
+        System.out.println(currentListProd.getFoto());
+
         return convertView;
 
 
@@ -63,13 +67,15 @@ public class ListViewAdapterProd extends BaseAdapter {
     private class MyViewHolder {
         TextView titolProd;
         TextView preuProd;
-        //ImageView imageProd;
+        ImageView imageProd;
+        AQuery aq;
 
 
         public MyViewHolder(View item) {
             titolProd = (TextView) item.findViewById(R.id.titol);
             preuProd = (TextView) item.findViewById(R.id.Preu);
-            //imageProd = (ImageView) item.findViewById(R.id.fotoPrin);
+            imageProd = (ImageView) item.findViewById(R.id.fotoPrin);
+            aq = new AQuery(context);
         }
     }
 }
