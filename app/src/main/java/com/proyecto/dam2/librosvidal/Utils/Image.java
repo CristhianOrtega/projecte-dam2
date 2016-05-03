@@ -30,6 +30,7 @@ public class Image {
 
     public static String imageToString (Bitmap bitmap){
 
+        bitmap = Image.cropBitmap(bitmap,250,250);
         ByteArrayOutputStream baos=new  ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
         byte [] b=baos.toByteArray();
