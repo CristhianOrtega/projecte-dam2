@@ -16,8 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidquery.AQuery;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
@@ -32,6 +34,7 @@ public class DetalleProducto extends AppCompatActivity
 
     SharedPreferences prefs;
     Product producte;
+    AQuery aQuery = new AQuery(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,10 @@ public class DetalleProducto extends AppCompatActivity
             peticioDet.setTextSize(10);
             peticioDet.setTextColor(getResources().getColor(R.color.redNoActivado));
         }
+
+        String imageString = producte.getFoto();
+        System.out.println("Imatge - "+imageString);
+        aQuery.id(R.id.imageView2).image(imageString,true,true);
 
 
     }

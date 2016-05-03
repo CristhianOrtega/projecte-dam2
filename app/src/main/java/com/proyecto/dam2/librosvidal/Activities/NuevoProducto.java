@@ -159,52 +159,57 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
 
         ImageButton imgPhoto = (ImageButton) findViewById(R.id.imageButton);
 
-        Bitmap bitmap =  null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (uriImage.equals(null)){
+            Toast.makeText(context,"Has d'inserir una imatge",Toast.LENGTH_SHORT).show();
+        }else {
 
-        bitmap = Image.createThumbnail(bitmap);
-        String imatge = Image.imageToString(bitmap);
-        // --- Register new product ----------------------------------------------------------------
-        String response = "";
-        HashMap<String,String> postParams = new HashMap<>();
-        postParams.put("action","new_product");
-        postParams.put("id_user",id+"");
-        postParams.put("titol",inputTitol.getText().toString());
-        postParams.put("descripcio",inputDescripcio.getText().toString());
-        postParams.put("preu",inputPreu.getText().toString());
-        postParams.put("peticio",inputPeticio.isChecked()+"");
-        postParams.put("venta",inputVenta.isChecked()+"");
-        postParams.put("intercanvi",inputIntercanvi.isChecked()+"");
-        postParams.put("imatge",imatge);
-
-        String url = "http://librosvidal.esy.es/api.php";
-
-        HttpConnection request = new HttpConnection(url, postParams,
-                "login");
-
-        while (!request.isReceived()) {
+            Bitmap bitmap = null;
             try {
-                Thread.sleep(250);
-            } catch (InterruptedException e) {
-
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriImage);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }
 
-        response = request.getResponse();
+            bitmap = Image.createThumbnail(bitmap);
+            String imatge = Image.imageToString(bitmap);
+            // --- Register new product ----------------------------------------------------------------
+            String response = "";
+            HashMap<String, String> postParams = new HashMap<>();
+            postParams.put("action", "new_product");
+            postParams.put("id_user", id + "");
+            postParams.put("titol", inputTitol.getText().toString());
+            postParams.put("descripcio", inputDescripcio.getText().toString());
+            postParams.put("preu", inputPreu.getText().toString());
+            postParams.put("peticio", inputPeticio.isChecked() + "");
+            postParams.put("venta", inputVenta.isChecked() + "");
+            postParams.put("intercanvi", inputIntercanvi.isChecked() + "");
+            postParams.put("imatge", imatge);
 
-        Log.i("COC", "New product added ->" + response);
+            String url = "http://librosvidal.esy.es/api.php";
 
-        if (response.equals("true")){
-            Toast.makeText(context, "Producto añadido", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(context, Registro_Usuario.class );
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        } else{
-            Toast.makeText(context,"Error al añadir.",Toast.LENGTH_SHORT).show();
+            HttpConnection request = new HttpConnection(url, postParams,
+                    "login");
+
+            while (!request.isReceived()) {
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+
+                }
+            }
+
+            response = request.getResponse();
+
+            Log.i("COC", "New product added ->" + response);
+
+            if (response.equals("true")) {
+                Toast.makeText(context, "Producto añadido", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(context, PantallaPrincipal.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            } else {
+                Toast.makeText(context, "Error al añadir.", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
