@@ -15,8 +15,9 @@ import java.util.HashMap;
 public class ServerAPI {
 
     public static String getProductImage(String idProduct){
+
         String image = "";
-        // --- request iamge products ---------------------------------------------------------------------------
+        // --- request image products ---------------------------------------------------------------------------
         String response = "";
         HashMap<String,String> postParams = new HashMap<>();
         postParams.put("action","return_image_product");

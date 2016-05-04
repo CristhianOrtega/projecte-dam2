@@ -131,7 +131,6 @@ public class EditarPerfil extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         bmap = Image.createThumbnail(bmap);
         String stringImatge = Image.imageToString(bmap);
 
@@ -159,9 +158,7 @@ public class EditarPerfil extends AppCompatActivity {
 
         response = request.getResponse();
 
-
         Log.i("COC", "EditImage -> " + response);
-
 
         if (response.equals("true")){
 

@@ -26,6 +26,11 @@ public class HttpConnection {
     private String stringResponse;
     private AtomicBoolean received;
 
+    // constructor que fa la crida al POST directament mitjançant un thread.
+
+    // Parametres URL del server, HASHMAP amb els camps del post, el from no importa massa només l'utilitzem
+    // per controlar si fall per saber d'on ve la crida.
+
     public HttpConnection(final String url, final HashMap<String, String> postDataParams, final String from) {
 
         received = new AtomicBoolean(false);
@@ -39,8 +44,6 @@ public class HttpConnection {
 
 
     public String performPostCall(String requestURL, HashMap<String, String> postDataParams, String from) {
-        //Log.e("llença post a ",from + " "+ requestURL+" ");
-
 
         String response = "";
 
@@ -97,6 +100,7 @@ public class HttpConnection {
             received.set(true);
         }
 
+        // retorna la resposta.
         Log.i("--- POST RESPONSE ---", response);
         return response;
     }
