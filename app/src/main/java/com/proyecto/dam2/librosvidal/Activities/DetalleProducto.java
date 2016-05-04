@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,8 +32,11 @@ import java.util.HashMap;
 public class DetalleProducto extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    SharedPreferences prefs;
     Product producte;
+    private NavigationView navigationView;
+    private View headerView;
+    private SharedPreferences prefs;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +60,33 @@ public class DetalleProducto extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
+
+        //MOSTRAR EL HEADER Y MENU CORRESPONDIENTE SEGUN LOGIN DEL NAVIGATION
+        headerView = LayoutInflater.from(this).inflate(R.layout.nav_header_all, null);
+        navigationView.addHeaderView(headerView);
+        navigationView.getMenu().clear();
+
+        //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
+        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        DatosNavigation.cargaPreferenciasUser(prefs, navigationView, headerView);
+
+
+        //LISTENER DEL NAV HEADER
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (prefs.getBoolean("login", false)) {
+                    Intent i = new Intent(context, VerPerfil.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
+            }
+        });
+
+
 
         //RECOLLIR PROD SELECCIONAT
         producte = (Product)getIntent().getSerializableExtra("Producte");
@@ -103,7 +133,14 @@ public class DetalleProducto extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.getMenu().clear();
+        System.out.println("Entra desde onResume");
+        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView);
 
+    }
 
     @Override
     public void onBackPressed() {
@@ -150,18 +187,38 @@ public class DetalleProducto extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.buscarProdMenu) {
+            Intent i = new Intent(this, Buscar.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (id == R.id.PerfilMenu) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.ChatMenu) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.inicio) {
+            Intent i = new Intent(this, PantallaPrincipal.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (id == R.id.loginMenu) {
+            Intent i = new Intent(this, LoginActivity.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        else if (id == R.id.logoutMenu) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("login", false);
+            editor.remove("ID");
+            editor.remove("NOM");
+            editor.remove("COGNOMS");
+            editor.remove("EMAIL");
+            editor.remove("IMAGEPERFIL");
+            editor.remove("PERFIL");
+            editor.remove("ROL");
+            editor.remove("STRINGIMAGE");
+            editor.commit();
+            finish();
+            startActivity(getIntent());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -3,6 +3,11 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/inicio"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Inicio" />
+
+        <item
             android:id="@+id/buscarProdMenu"
             android:icon="@drawable/ic_menu_camera"
             android:title="Buscar producto" />
@@ -14,10 +19,6 @@
             android:id="@+id/ChatMenu"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Chats" />
-        <item
-            android:id="@+id/menuConfig"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Configuración" />
 
         <item
             android:id="@+id/logoutMenu"

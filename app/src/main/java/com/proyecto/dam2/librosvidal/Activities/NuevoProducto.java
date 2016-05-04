@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 import com.proyecto.dam2.librosvidal.Utils.Image;
 
 import java.io.IOException;
@@ -38,6 +40,10 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
     private int SELECT_IMAGE = 6452;
     private int TAKE_PICTURE = 4352;
     private Uri uriImage;
+    private NavigationView navigationView;
+    private View headerView;
+    private SharedPreferences prefs;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +59,49 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
+
+        //MOSTRAR EL HEADER Y MENU CORRESPONDIENTE SEGUN LOGIN DEL NAVIGATION
+        headerView = LayoutInflater.from(this).inflate(R.layout.nav_header_all, null);
+        navigationView.addHeaderView(headerView);
+        navigationView.getMenu().clear();
+
+        //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
+        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        DatosNavigation.cargaPreferenciasUser(prefs, navigationView, headerView);
+
+
+        //LISTENER DEL NAV HEADER
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (prefs.getBoolean("login", false)) {
+                    Intent i = new Intent(context, VerPerfil.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
+            }
+        });
+
+        if(!prefs.getBoolean("login", false)) {
+            finish();
+            Intent i = new Intent(this, LoginActivity.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.getMenu().clear();
+        System.out.println("Entra desde onResume");
+        //cargaPreferenciasUser();
+        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView);
+
     }
 
     @Override
@@ -132,10 +179,30 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
 
         } else if (id == R.id.ChatMenu) {
 
-        } else if (id == R.id.menuConfig) {
-            Intent i = new Intent(this, Configuracion.class );
+        } else if (id == R.id.inicio) {
+            Intent i = new Intent(this, PantallaPrincipal.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+        } else if (id == R.id.loginMenu) {
+            Intent i = new Intent(this, LoginActivity.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
+
+        else if (id == R.id.logoutMenu) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("login", false);
+            editor.remove("ID");
+            editor.remove("NOM");
+            editor.remove("COGNOMS");
+            editor.remove("EMAIL");
+            editor.remove("IMAGEPERFIL");
+            editor.remove("PERFIL");
+            editor.remove("ROL");
+            editor.remove("STRINGIMAGE");
+            editor.commit();
+            finish();
+            startActivity(getIntent());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

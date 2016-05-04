@@ -42,6 +42,7 @@ import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 import com.proyecto.dam2.librosvidal.Utils.Image;
 
 import org.json.JSONArray;
@@ -71,7 +72,8 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         super.onResume();
         navigationView.getMenu().clear();
         System.out.println("Entra desde onResume");
-        cargaPreferenciasUser();
+        //cargaPreferenciasUser();
+        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView);
 
     }
 
@@ -107,10 +109,10 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         headerView = LayoutInflater.from(this).inflate(R.layout.nav_header_all, null);
         navigationView.addHeaderView(headerView);
         navigationView.getMenu().clear();
-        //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
 
-        System.out.println("Entra desde OnCreate");
-        cargaPreferenciasUser();
+        //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
+        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView);
 
 
         //LISTENER DEL NAV HEADER
@@ -126,7 +128,8 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         });
 
         // CARGAR ELEMENTOS EN EL LIST VIEW
-        listaProd = (ArrayList<Product> )getIntent().getSerializableExtra("lista");
+        //listaProd = (ArrayList<Product> )getIntent().getSerializableExtra("lista");
+        listaProd = SplashScreen.listaProd;
         System.out.println("En la lista hay: " + listaProd.size());
         ListViewDetail = (ListView) findViewById(R.id.list);
 
@@ -269,8 +272,8 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         } else if (id == R.id.ChatMenu) {
 
-        } else if (id == R.id.menuConfig) {
-            Intent i = new Intent(this, Configuracion.class );
+        } else if (id == R.id.inicio) {
+            Intent i = new Intent(this, PantallaPrincipal.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         } else if (id == R.id.loginMenu) {
@@ -300,7 +303,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    private void cargaPreferenciasUser (){
+    /*private void cargaPreferenciasUser (){
 
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
 
@@ -338,7 +341,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         } else {
             navigationView.inflateMenu(R.menu.activity_all_drawer);
         }
-    }
+    }*/
 
 
 }

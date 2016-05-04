@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public class SplashScreen extends Activity {
 
-    ArrayList<Product> listaProd;
+    static ArrayList<Product> listaProd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
