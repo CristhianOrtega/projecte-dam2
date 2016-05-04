@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.Utils.Google;
 
 
@@ -40,11 +41,8 @@ public class RegisterGCM {
         Log.i("GCM "," Register GCM START!|  ");
 
         if (Google.checkPlayServices(context)) {
-            Log.i("GCM ","1.  - Entra a Google.checkPlayServices(context) ->"+Google.checkPlayServices(context));
             gcm = GoogleCloudMessaging.getInstance(context);
-            Log.i("GCM ","2.  - Fa GoogleCloudMessaging.getInstance(context)  "+ GoogleCloudMessaging.getInstance(context));
             regid = getRegistrationId(context);
-            Log.i("GCM", "3.  -  Device ID: " + getRegistrationId(context));
 
             if (regid.isEmpty()) {
                 registerInBackground(context);
@@ -67,7 +65,7 @@ public class RegisterGCM {
      */
     public static String getRegistrationId(Context context) {
 
-        String registrationId = "" ;//= LocalStorage_Preferences_Config.getPreference("regId", context);
+        String registrationId = PreferencesUser.getPreference("regId", context);
 
         if (registrationId == "" ) {
             Log.i("GCM", "Registration not found.");
@@ -76,7 +74,7 @@ public class RegisterGCM {
         // Check if app was updated; if so, it must clear the registration ID
         // since the existing registration ID is not guaranteed to work with
         // the new app version.
-        int registeredVersion = 0;//Integer.valueOf(LocalStorage_Preferences_Config.getPreference("appVersion",context));
+        int registeredVersion = Integer.valueOf(PreferencesUser.getPreference("appVersion",context));
 
         int currentVersion = getAppVersion(context);
         if (registeredVersion != currentVersion) {
@@ -184,11 +182,10 @@ public class RegisterGCM {
         int appVersion = getAppVersion(context);
         Log.i("GCM", "Saving regId on app version " + appVersion);
 
-        // TODO guardar a preferences el regid i appVersion
-        /*
-        LocalStorage_Preferences_Config.setPreference("regId", regId, context);
-        LocalStorage_Preferences_Config.setPreference("appVersion", appVersion + "",context);
-        */
+
+        PreferencesUser.setPreference("regId", regId, context);
+        PreferencesUser.setPreference("appVersion", appVersion + "",context);
+
 
         //ServerAPI.sendGCM(context, regid);
 

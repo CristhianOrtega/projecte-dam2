@@ -26,8 +26,8 @@
         <activity
             android:name=".Activities.PantallaPrincipal"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
 
             <!--
             <intent-filter>
@@ -40,35 +40,35 @@
         <activity
             android:name=".Activities.Configuracion"
             android:label="@string/title_activity_configuracion"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.NuevoProducto"
             android:label="@string/title_activity_nuevo_producto"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.Buscar"
             android:label="@string/title_activity_buscar"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.Registro_Usuario"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.EditarPerfil"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.VerPerfil"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.DetalleProducto"
             android:label="@string/title_activity_detalle_producto"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Splash screen -->
         <activity
@@ -85,8 +85,9 @@
         <activity
             android:name=".Activities.EditarProd"
             android:label="@string/title_activity_editar_prod"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.Chat"></activity>
     </application>
 
 </manifest>

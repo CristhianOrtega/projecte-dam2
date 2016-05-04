@@ -1,5 +1,6 @@
 package com.proyecto.dam2.librosvidal.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,13 +10,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
+import com.proyecto.dam2.librosvidal.Communications.RegisterGCM;
+import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.Others;
 
 import java.util.HashMap;
 
 public class Registro_Usuario extends AppCompatActivity {
 
     Context context;
+    Activity contextActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +90,19 @@ public class Registro_Usuario extends AppCompatActivity {
 
         Log.i("COC", "Register->" + response);
 
-        if (response.equals("true")){ return true; }
-        else{ return false; }
+        if (response.equals("true")){
+
+            int appVersion = Others.getAppVersion(context);
+
+            PreferencesUser.setPreference("appVersion",appVersion+"",context);
+
+            RegisterGCM.register(contextActivity);
+
+            return true;
+        }
+        else{
+            return false;
+        }
 
 
     }
