@@ -3,22 +3,11 @@ package com.proyecto.dam2.librosvidal.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,31 +17,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-import com.androidquery.callback.BitmapAjaxCallback;
 import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
-import com.proyecto.dam2.librosvidal.Utils.Image;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -269,8 +242,14 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         } else if (id == R.id.PerfilMenu) {
+            Intent i = new Intent(this, VerPerfil.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
 
         } else if (id == R.id.ChatMenu) {
+            Intent i = new Intent(this, Chat.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
 
         } else if (id == R.id.inicio) {
             Intent i = new Intent(this, PantallaPrincipal.class );
@@ -302,46 +281,6 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    /*private void cargaPreferenciasUser (){
-
-        prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
-
-        System.out.println(prefs.getBoolean("login", false));
-        if(prefs.getBoolean("login", false)) {
-            System.out.println("Entra en login");
-            navigationView.inflateMenu(R.menu.activity_all_drawer_loged);
-            TextView nombreHeader = (TextView ) headerView.findViewById(R.id.nomHeader);
-            TextView correoHeader = (TextView) headerView.findViewById(R.id.correoHeader);
-            nombreHeader.setText(prefs.getString("NOM","Alumno"));
-            correoHeader.setText(prefs.getString("EMAIL", "alumne@vidalibarraquer.net"));
-
-            //CARGAR IMAGEN!!! ////
-            Bitmap bitmap = Image.decodeString(prefs.getString("STRINGIMAGE", "null"));
-
-            System.out.println("El bitmap es: " + bitmap);
-
-            ImageView fotoPerfil = (ImageView) headerView.findViewById(R.id.imagePerfil);
-            fotoPerfil.setImageBitmap(bitmap);
-
-            Bitmap recortado = Image.cropBitmap(bitmap, 250, 250);
-            Bitmap circleBitmap = Bitmap.createBitmap(recortado.getWidth(), recortado.getHeight(), Bitmap.Config.ARGB_8888);
-
-            BitmapShader shader = new BitmapShader(recortado,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-            Paint paint = new Paint();
-            paint.setShader(shader);
-
-            Canvas c = new Canvas(circleBitmap);
-            c.drawCircle(recortado.getWidth() / 2, recortado.getHeight() / 2, recortado.getWidth() / 2, paint);
-
-
-
-            fotoPerfil.setImageBitmap(circleBitmap);
-
-        } else {
-            navigationView.inflateMenu(R.menu.activity_all_drawer);
-        }
-    }*/
 
 
 }

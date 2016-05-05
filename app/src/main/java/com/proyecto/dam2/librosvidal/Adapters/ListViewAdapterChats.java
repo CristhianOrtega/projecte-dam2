@@ -7,19 +7,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.ArrayList;
 
 import com.androidquery.AQuery;
+import com.proyecto.dam2.librosvidal.Clases.Contacte;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.R;
 
-public class ListViewAdapterProd extends BaseAdapter {
-    static ArrayList<Product> myList = new ArrayList<Product>();
+import java.util.ArrayList;
+
+public class ListViewAdapterChats extends BaseAdapter {
+    static ArrayList<Contacte> myList = new ArrayList<Contacte>();
     LayoutInflater inflater;
     Context context;
 
 
-    public ListViewAdapterProd(Context context, ArrayList<Product> myList) {
+    public ListViewAdapterChats(Context context, ArrayList<Contacte> myList) {
         this.myList = myList;
         this.context = context;
         inflater = LayoutInflater.from(this.context);
@@ -31,7 +33,7 @@ public class ListViewAdapterProd extends BaseAdapter {
     }
 
     @Override
-    public Product getItem(int position) {
+    public Contacte getItem(int position) {
         return myList.get(position);
     }
 
@@ -45,18 +47,18 @@ public class ListViewAdapterProd extends BaseAdapter {
         MyViewHolder mViewHolder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.producte, parent, false);
+            convertView = inflater.inflate(R.layout.contacte, parent, false);
             mViewHolder = new MyViewHolder(convertView);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        Product currentListProd = getItem(position);
-        mViewHolder.titolProd.setText(currentListProd.getTitol());
-        mViewHolder.preuProd.setText(""+currentListProd.getPreu()+"€");
-        mViewHolder.aq.id(convertView.findViewById(R.id.fotoPrin)).image(currentListProd.getFoto(), true, true);
-        System.out.println(currentListProd.getFoto());
+        Contacte currentListProd = getItem(position);
+        mViewHolder.nomcontact.setText(currentListProd.getNom());
+        mViewHolder.lastMsg.setText("" + currentListProd.getLastMsg());
+        mViewHolder.aq.id(convertView.findViewById(R.id.fotoCont)).image(currentListProd.getImagePerfilCont(), true, true);
+        System.out.println(currentListProd.getImagePerfilCont());
 
         return convertView;
 
@@ -65,16 +67,16 @@ public class ListViewAdapterProd extends BaseAdapter {
 
 
     private class MyViewHolder {
-        TextView titolProd;
-        TextView preuProd;
-        ImageView imageProd;
+        TextView nomcontact;
+        TextView lastMsg;
+        ImageView imageContact;
         AQuery aq;
 
 
         public MyViewHolder(View item) {
-            titolProd = (TextView) item.findViewById(R.id.nomContact);
-            preuProd = (TextView) item.findViewById(R.id.Preu);
-            imageProd = (ImageView) item.findViewById(R.id.fotoPrin);
+            nomcontact = (TextView) item.findViewById(R.id.nomContact);
+            lastMsg = (TextView) item.findViewById(R.id.lastMsg);
+            imageContact = (ImageView) item.findViewById(R.id.fotoCont);
             aq = new AQuery(context);
         }
     }
