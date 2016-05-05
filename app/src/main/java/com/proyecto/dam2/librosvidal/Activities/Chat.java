@@ -35,6 +35,7 @@ public class Chat extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
         ListViewDetail = (ListView) findViewById(R.id.listChats);
 
+        listaChats = new ArrayList<>();
         adapter = new ListViewAdapterChats(this, listaChats);
         ListViewDetail.setAdapter(adapter);
 
@@ -61,7 +62,6 @@ public class Chat extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
 
     }
-
 
 
     /**

@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
+import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 import com.proyecto.dam2.librosvidal.Utils.Image;
@@ -249,9 +250,10 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
             postParams.put("titol", inputTitol.getText().toString());
             postParams.put("descripcio", inputDescripcio.getText().toString());
             postParams.put("preu", inputPreu.getText().toString());
-            postParams.put("peticio", inputPeticio.isChecked() + "");
-            postParams.put("venta", inputVenta.isChecked() + "");
-            postParams.put("intercanvi", inputIntercanvi.isChecked() + "");
+            postParams.put("peticio", String.valueOf(inputPeticio.isChecked()));
+            postParams.put("venta", String.valueOf(inputVenta.isChecked()));
+            postParams.put("intercanvi", String.valueOf(inputIntercanvi.isChecked()));
+            postParams.put("regid", PreferencesUser.getPreference("regId",context));
             postParams.put("imatge", imatge);
 
             String url = "http://librosvidal.esy.es/api.php";

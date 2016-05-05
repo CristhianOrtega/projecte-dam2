@@ -194,6 +194,8 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
                     venut = false;
                 }
 
+                String regId = jsonObject.get("regid").toString();
+
                 String image = ServerAPI.getProductImage(""+id);
                 image = "" + image;
                 System.out.println(image);
@@ -201,7 +203,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
                 // Crear producte i afegir a la llsita
                 if (!venut){
-                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi,image);
+                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi,image,regId);
                     listaProd.add(producte);
                 }
 

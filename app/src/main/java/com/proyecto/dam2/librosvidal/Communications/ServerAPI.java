@@ -50,4 +50,63 @@ public class ServerAPI {
 
         return image;
     }
+
+    public static void sendMessageByGCM(String regid,String message){
+        HttpConnection httppost;
+        String response = "";
+        try {
+
+            HashMap<String,String> postParams =  new HashMap<>();
+            postParams.put("registration_id", regid);
+            postParams.put("data.mode", message);
+            httppost = new HttpConnection("https://android.googleapis.com/gcm/send",postParams,"chat");
+
+            // esperar resposta per part del server
+            while (!httppost.isReceived()) {
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+
+                }
+            }
+
+            response = httppost.getResponse();
+
+            Log.i("COC", "Reponse del enviament del missatge ->" + response);
+
+        }catch (Exception e) {
+            Log.i("COC","Error al enviar missatge per gcm");
+        }
+    }
+
+
+    public static boolean saveRegId(String email,String regid){
+
+        // --- Save regid --------------------------------------------------------------------------
+        String response = "";
+        HashMap<String,String> postParams = new HashMap<>();
+        postParams.put("action","save_regid");
+        postParams.put("email",email);
+        postParams.put("regid",regid);
+        String url = "http://librosvidal.esy.es/api.php";
+
+        HttpConnection request = new HttpConnection(url, postParams,
+                "login");
+
+        while (!request.isReceived()) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+        response = request.getResponse();
+
+        Log.i("COC", "SAve regID->" + response);
+
+        if (response.equals("true")){return true;}
+        else{return false;}
+    }
+
 }

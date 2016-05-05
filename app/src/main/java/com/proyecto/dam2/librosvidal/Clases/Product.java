@@ -17,9 +17,10 @@ public class Product implements Serializable{
     boolean peticio;
     boolean venta;
     boolean intercanvi;
+    String regId;
 
 
-    public Product(int id, String titol, String descripcio, double preu, boolean peticio, boolean venta, boolean intercanvi, String foto) {
+    public Product(int id, String titol, String descripcio, double preu, boolean peticio, boolean venta, boolean intercanvi, String foto,String regId) {
         this.id = id;
         this.titol = titol;
         this.descripcio = descripcio;

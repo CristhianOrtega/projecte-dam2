@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.Communications.RegisterGCM;
+import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Utils.Others;
@@ -95,12 +96,13 @@ public class Registro_Usuario extends AppCompatActivity {
             int appVersion = Others.getAppVersion(context);
 
             PreferencesUser.setPreference("appVersion",appVersion+"",context);
+            PreferencesUser.setPreference("email",email,context);
 
             RegisterGCM.register(contextActivity);
 
             return true;
-        }
-        else{
+
+        }else{
             return false;
         }
 

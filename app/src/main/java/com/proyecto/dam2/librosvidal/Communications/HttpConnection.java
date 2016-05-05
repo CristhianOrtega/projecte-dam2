@@ -42,6 +42,17 @@ public class HttpConnection {
         }.start();
     }
 
+    public HttpConnection(final String url, final HashMap<String, String> postDataParams ) {
+
+        received = new AtomicBoolean(false);
+
+        new Thread() {
+            public void run() {
+                performPostCall(url, postDataParams, "chat");
+            }
+        }.start();
+    }
+
 
     public String performPostCall(String requestURL, HashMap<String, String> postDataParams, String from) {
 
@@ -60,6 +71,7 @@ public class HttpConnection {
             conn.setRequestMethod("POST");
             conn.setDoInput(true);
             conn.setDoOutput(true);
+
 
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(

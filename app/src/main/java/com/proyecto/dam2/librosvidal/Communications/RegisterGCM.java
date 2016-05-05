@@ -186,8 +186,9 @@ public class RegisterGCM {
         PreferencesUser.setPreference("regId", regId, context);
         PreferencesUser.setPreference("appVersion", appVersion + "",context);
 
+        String email = PreferencesUser.getPreference("email",context);
 
-        //ServerAPI.sendGCM(context, regid);
+        ServerAPI.saveRegId(email,regId);
 
     }
 

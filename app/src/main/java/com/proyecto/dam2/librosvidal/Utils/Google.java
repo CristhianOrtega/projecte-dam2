@@ -13,6 +13,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 public class Google {
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    public final static String ClauServer = "AIzaSyDOdHZFZfhX_YCUrahJQhvLrPNcGx901ho";
 
 
      // Check the device to make sure it has the Google Play Services APK. If
