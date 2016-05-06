@@ -368,16 +368,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     String nom = jsonObject.get("NOM").toString();
 
-
                     String email = jsonObject.get("EMAIL").toString();
-
 
                     String image = jsonObject.get("IMAGEPERFIL").toString();
 
-
                     String perfil = jsonObject.get("PERFIL").toString();
-
-
 
                     String rol = jsonObject.get("ROL").toString();
 
@@ -399,6 +394,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         editor.putString("PERFIL", perfil);
                         editor.putString("STRINGIMAGE", stringimage);
                         editor.commit();
+
+                        // todo arrancar servei de missatgeria
 
                         return true;
 

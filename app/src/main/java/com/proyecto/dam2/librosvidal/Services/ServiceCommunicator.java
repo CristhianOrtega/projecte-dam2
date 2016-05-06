@@ -5,7 +5,9 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
+import com.proyecto.dam2.librosvidal.Clases.Message;
 import com.proyecto.dam2.librosvidal.Clases.QueueMessages;
+import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 
 
 /**
@@ -24,19 +26,24 @@ public class ServiceCommunicator extends IntentService {
         while (true) {
 
             Log.i("COC", "--> processQueue()");
-
+            Message message =  new Message();
             try {
 
                 if(!QueueMessages.MessageQueue.isEmpty()){
-
+                    message = QueueMessages.MessageQueue.pop();
+                    ServerAPI.sendMessageByGCM(message.getRegIDFor(),message.getMessage());
                 }
 
-            } catch (Exception e) {
+                Thread.sleep(500);
 
+            } catch (Exception e) {
+                QueueMessages.MessageQueue.push(message);
                 e.printStackTrace();
                 Log.i("COC", "******************************************** Error service message");
 
+
             }
+
         }
     }
 

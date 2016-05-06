@@ -72,8 +72,8 @@ public class Registro_Usuario extends AppCompatActivity {
         postParams.put("action","register");
         postParams.put("email",email);
         postParams.put("password",password);
-        postParams.put("nom",password);
-        postParams.put("cognoms",password);
+        postParams.put("nom",nom);
+        postParams.put("cognoms",cognoms);
         String url = "http://programacion.cocinassobreruedas.com/api.php";
 
         HttpConnection request = new HttpConnection(url, postParams,
