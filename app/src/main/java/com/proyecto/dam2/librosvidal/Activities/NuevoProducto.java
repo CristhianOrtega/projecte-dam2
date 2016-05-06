@@ -77,7 +77,7 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
 
         //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
-        DatosNavigation.cargaPreferenciasUser(prefs, navigationView, headerView);
+        DatosNavigation.cargaPreferenciasUser(prefs, navigationView, headerView,context);
 
 
         //LISTENER DEL NAV HEADER
@@ -123,7 +123,7 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
         navigationView.getMenu().clear();
         System.out.println("Entra desde onResume");
         //cargaPreferenciasUser();
-        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView);
+        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView,context);
 
     }
 

@@ -378,6 +378,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     String perfil = jsonObject.get("PERFIL").toString();
 
 
+
                     String rol = jsonObject.get("ROL").toString();
 
                     String cognoms = jsonObject.get("COGNOMS").toString();

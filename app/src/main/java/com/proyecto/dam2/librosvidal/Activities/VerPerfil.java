@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.androidquery.AQuery;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.Image;
 
 import java.util.HashMap;
 
@@ -39,6 +41,7 @@ public class VerPerfil extends AppCompatActivity {
         String perfil = prefs.getString("PERFIL","");
         String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
 
+        if (ruta.equals("null")) ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
 
 
         AQuery aq=new AQuery(this); // intsialze aquery

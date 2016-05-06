@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.Communications.RegisterGCM;
-import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Utils.Others;
@@ -28,6 +27,7 @@ public class Registro_Usuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro__usuario);
         context = this;
+        contextActivity = this;
     }
 
 
@@ -58,7 +58,7 @@ public class Registro_Usuario extends AppCompatActivity {
 
             }
         }else{
-            context = this;
+
             Toast.makeText(context,"No coindice el password",Toast.LENGTH_SHORT).show();
         }
 
