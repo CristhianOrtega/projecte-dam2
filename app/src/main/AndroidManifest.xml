@@ -91,8 +91,6 @@
             android:label="@string/title_activity_editar_prod"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.Chat" />
-        <activity android:name=".Activities.ConversaActivity"></activity>
     </application>
 
 </manifest>
