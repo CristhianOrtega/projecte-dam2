@@ -46,7 +46,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         navigationView.getMenu().clear();
         System.out.println("Entra desde onResume");
         //cargaPreferenciasUser();
-        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView);
+        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView,context);
 
     }
 
@@ -85,7 +85,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
         //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
-        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView);
+        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView,context);
 
 
         //LISTENER DEL NAV HEADER
@@ -140,7 +140,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         HashMap<String,String> postParams = new HashMap<>();
         listaProd = new ArrayList<>();
         postParams.put("action","return_all_products");
-        String url = "http://librosvidal.esy.es/api.php";
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
 
         HttpConnection request = new HttpConnection(url, postParams,
                 "login");

@@ -49,7 +49,7 @@ public class EditarPerfil extends AppCompatActivity {
         String cognoms = prefs.getString("COGNOMS", "");
         String email = prefs.getString("EMAIL", "");
         String perfil = prefs.getString("PERFIL","");
-        String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
+        String ruta = prefs.getString("IMAGEPERFIL","http://programacion.cocinassobreruedas.com/images/fotoperfil.png");
 
 
 
@@ -83,7 +83,7 @@ public class EditarPerfil extends AppCompatActivity {
         postParams.put("id_user",String.valueOf(idUser));
 
 
-        String url = "http://librosvidal.esy.es/api.php";
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
 
         HttpConnection request = new HttpConnection(url, postParams,
                 "login");
@@ -143,7 +143,7 @@ public class EditarPerfil extends AppCompatActivity {
         postParams.put("imatge", stringImatge);
         postParams.put("id_user", String.valueOf(idUser));
 
-        String url = "http://librosvidal.esy.es/api.php";
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
 
         HttpConnection request = new HttpConnection(url, postParams,
                 "login");

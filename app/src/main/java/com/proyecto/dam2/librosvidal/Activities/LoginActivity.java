@@ -326,7 +326,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             postParams.put("action", "login");
             postParams.put("email", mEmail);
             postParams.put("password", mPassword);
-            String url = "http://librosvidal.esy.es/api.php";
+            String url = "http://programacion.cocinassobreruedas.com/api.php";
 
             // llença POST
             HttpConnection request = new HttpConnection(url, postParams,
@@ -376,6 +376,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
                     String perfil = jsonObject.get("PERFIL").toString();
+
 
 
                     String rol = jsonObject.get("ROL").toString();

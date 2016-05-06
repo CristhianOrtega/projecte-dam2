@@ -53,7 +53,7 @@ public class Buscar extends AppCompatActivity implements NavigationView.OnNaviga
 
         //Cargar preferencias del usuario en el NavHeader i opciones adicionales de admin
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
-        DatosNavigation.cargaPreferenciasUser(prefs, navigationView, headerView);
+        DatosNavigation.cargaPreferenciasUser(prefs, navigationView, headerView,context);
 
 
         //LISTENER DEL NAV HEADER

@@ -137,6 +137,7 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="Contacta"
             android:id="@+id/buttonContacta"
+            android:onClick="onClickContacta"
             android:layout_below="@+id/tableRow"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
