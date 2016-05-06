@@ -74,7 +74,7 @@ public class Registro_Usuario extends AppCompatActivity {
         postParams.put("password",password);
         postParams.put("nom",password);
         postParams.put("cognoms",password);
-        String url = "http://librosvidal.esy.es/api.php";
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
 
         HttpConnection request = new HttpConnection(url, postParams,
                 "login");

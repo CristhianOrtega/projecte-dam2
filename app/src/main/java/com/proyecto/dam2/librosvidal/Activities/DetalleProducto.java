@@ -16,11 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.Image;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,12 +34,14 @@ public class DetalleProducto extends AppCompatActivity
 
     SharedPreferences prefs;
     Product producte;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
         String rol = prefs.getString("ROL", "usuari");
+        context = this;
         System.out.println("ROL: " + rol);
         if (rol.equals("admin")){
             setContentView(R.layout.activity_detalle_producto_admin);
@@ -99,6 +103,10 @@ public class DetalleProducto extends AppCompatActivity
             peticioDet.setTextSize(10);
             peticioDet.setTextColor(getResources().getColor(R.color.redNoActivado));
         }
+
+
+        System.out.println(producte.getFoto());
+
 
 
     }
@@ -167,5 +175,14 @@ public class DetalleProducto extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onClickContacta(View view){
+
+        Intent i = new Intent(context, ConversaActivity.class );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("Producte",producte);
+        startActivity(i);
+
     }
 }

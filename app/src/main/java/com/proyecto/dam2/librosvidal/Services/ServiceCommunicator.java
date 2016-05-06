@@ -34,7 +34,7 @@ public class ServiceCommunicator extends IntentService {
             } catch (Exception e) {
 
                 e.printStackTrace();
-                Log.i("RJJ", "******************************************** Error service message");
+                Log.i("COC", "******************************************** Error service message");
 
             }
         }

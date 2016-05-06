@@ -140,7 +140,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         HashMap<String,String> postParams = new HashMap<>();
         listaProd = new ArrayList<>();
         postParams.put("action","return_all_products");
-        String url = "http://librosvidal.esy.es/api.php";
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
 
         HttpConnection request = new HttpConnection(url, postParams,
                 "login");

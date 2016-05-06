@@ -31,6 +31,14 @@ public class Product implements Serializable{
         this.foto = foto;
     }
 
+    public String getRegId() {
+        return regId;
+    }
+
+    public void setRegId(String regId) {
+        this.regId = regId;
+    }
+
     public int getId() {
         return id;
     }

@@ -279,7 +279,7 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
             postParams.put("regid", PreferencesUser.getPreference("regId",context));
             postParams.put("imatge", imatge);
 
-            String url = "http://librosvidal.esy.es/api.php";
+            String url = "http://programacion.cocinassobreruedas.com/api.php";
 
             HttpConnection request = new HttpConnection(url, postParams,
                     "login");

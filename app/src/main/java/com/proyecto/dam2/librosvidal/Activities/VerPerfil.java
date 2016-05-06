@@ -39,9 +39,9 @@ public class VerPerfil extends AppCompatActivity {
         String cognoms = prefs.getString("COGNOMS", "");
         String email = prefs.getString("EMAIL", "");
         String perfil = prefs.getString("PERFIL","");
-        String ruta = prefs.getString("IMAGEPERFIL","http://librosvidal.esy.es/images/fotoperfil.png");
+        String ruta = prefs.getString("IMAGEPERFIL","http://programacion.cocinassobreruedas.com/images/fotoperfil.png");
 
-        if (ruta.equals("null")) ruta = "http://librosvidal.esy.es/images/fotoperfil.png";
+        if (ruta.equals("null")) ruta = "http://programacion.cocinassobreruedas.com/images/fotoperfil.png";
 
 
         AQuery aq=new AQuery(this); // intsialze aquery

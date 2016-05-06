@@ -22,7 +22,7 @@ public class ServerAPI {
         HashMap<String,String> postParams = new HashMap<>();
         postParams.put("action","return_image_product");
         postParams.put("id_product",idProduct);
-        String url = "http://librosvidal.esy.es/api.php";
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
 
         HttpConnection request = new HttpConnection(url, postParams,
                 "product image");
@@ -88,7 +88,7 @@ public class ServerAPI {
         postParams.put("action","save_regid");
         postParams.put("email",email);
         postParams.put("regid",regid);
-        String url = "http://librosvidal.esy.es/api.php";
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
 
         HttpConnection request = new HttpConnection(url, postParams,
                 "login");

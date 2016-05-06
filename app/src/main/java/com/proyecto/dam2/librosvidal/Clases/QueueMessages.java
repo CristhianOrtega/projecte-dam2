@@ -9,5 +9,4 @@ public class QueueMessages {
 
     public static Stack<String> MessageQueue =  new Stack<>();
 
-
 }
