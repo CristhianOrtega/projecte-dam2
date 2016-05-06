@@ -21,10 +21,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
@@ -34,7 +36,9 @@ import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 import com.proyecto.dam2.librosvidal.Utils.Image;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class NuevoProducto extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -45,6 +49,8 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
     private View headerView;
     private SharedPreferences prefs;
     private Context context = this;
+    private Spinner categoria;
+    private List<String> listaCat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +99,23 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
             startActivity(i);
         }
 
+        DatosPorDefecto();
+
     }
+
+    private void DatosPorDefecto() {
+
+        categoria = (Spinner) findViewById(R.id.selectCategoria);
+        listaCat = new ArrayList<String>();
+        categoria = (Spinner) this.findViewById(R.id.selectCategoria);
+        listaCat.add("Libros");
+        listaCat.add("Apuntes");
+        listaCat.add("Material escolar");
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCat);
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoria.setAdapter(adaptador);
+    }
+
 
     @Override
     protected void onResume() {
@@ -249,6 +271,7 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
             postParams.put("id_user", id + "");
             postParams.put("titol", inputTitol.getText().toString());
             postParams.put("descripcio", inputDescripcio.getText().toString());
+            postParams.put("categoria", categoria.getSelectedItem().toString());
             postParams.put("preu", inputPreu.getText().toString());
             postParams.put("peticio", String.valueOf(inputPeticio.isChecked()));
             postParams.put("venta", String.valueOf(inputVenta.isChecked()));
