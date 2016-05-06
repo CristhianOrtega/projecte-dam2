@@ -128,7 +128,7 @@ public class SplashScreen extends Activity {
                     image = "" + image;
                     System.out.println(image);
                     if (!venut){
-                        Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi, image);
+                        Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi, image,null);
                         listaProd.add(producte);
                     }
 
