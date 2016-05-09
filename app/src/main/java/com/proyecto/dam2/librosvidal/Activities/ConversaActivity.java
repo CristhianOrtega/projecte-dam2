@@ -11,10 +11,12 @@ import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterMessages;
 import com.proyecto.dam2.librosvidal.Clases.Message;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Clases.QueueMessages;
+import com.proyecto.dam2.librosvidal.Database.LogChatSQLite;
 import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class ConversaActivity extends AppCompatActivity {
 
@@ -29,9 +31,20 @@ public class ConversaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversa);
         context = this;
+        String regID;
 
-        // Carregar dades del producte
-        producte = (Product)getIntent().getSerializableExtra("Producte");
+        // Carregar dades del producte per si ve de clicar el boto de contacta
+        if (getIntent().getSerializableExtra("Producte")!=null) {
+            producte = (Product) getIntent().getSerializableExtra("Producte");
+        }
+
+        // Carregar dades si ve per la notificació.
+        if (getIntent().getSerializableExtra("regID")!=null){
+            regID = getIntent().getStringExtra("regId").toString();
+            LogChatSQLite BD = new LogChatSQLite(context);
+            ArrayList<Message> missatges = BD.listaMensajes(regID,context);
+        }
+
 
         // CARGAR ELEMENTOS EN EL LIST VIEW
         listaMessages = new ArrayList<>();
@@ -62,6 +75,10 @@ public class ConversaActivity extends AppCompatActivity {
             String regID = producte.getRegId();
 
             Message message = new Message(usuari,text,regID,true);
+
+            // guardar el missatge a la BD
+            LogChatSQLite bd = new LogChatSQLite(context);
+            bd.guardarMensaje(regID,text,System.currentTimeMillis(),usuari);
 
             //afegir-lo a la llista.
             listaMessages.add(message);
