@@ -100,7 +100,9 @@ public class GcmService extends IntentService {
                     JSONObject json =  new JSONObject(extras.getString("message"));
                     String action = json.get("action").toString();
 
-                    if (action.equals("set_config")){
+                    if (action.equals("communicator")){
+
+
 
                     }
 
