@@ -23,6 +23,7 @@ import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Utils.CargarProds;
 import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -130,97 +131,16 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onRefresh() {
-        obtenirProductes();
+        CargarProds.obtenirProds(listaProd);
+
+        //Actualizar lista
+        adapter = new ListViewAdapterProd(this, listaProd);
+        ListViewDetail.setAdapter(adapter);
+
+        // stopping swipe refresh
+        swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void obtenirProductes() {
-
-        // --- request all products ---------------------------------------------------------------------------
-        String response = "";
-        HashMap<String,String> postParams = new HashMap<>();
-        listaProd = new ArrayList<>();
-        postParams.put("action","return_all_products");
-        String url = "http://programacion.cocinassobreruedas.com/api.php";
-
-        HttpConnection request = new HttpConnection(url, postParams,
-                "login");
-
-        while (!request.isReceived()) {
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException e) {
-
-            }
-        }
-
-        response = request.getResponse();
-
-        Log.i("COC", "Login->" + response);
-
-        //RECOLLIR DADES DELS PRODUCTES I AFEGIR-LOS AL ARRAY DE PRODUCTES
-        try{
-            JSONArray jsonArray = new JSONArray(response);
-            for (int i = 0; i<jsonArray.length();i++){
-
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-
-                int id = Integer.valueOf(jsonObject.get("ID").toString());
-                String titol = jsonObject.get("TITOL").toString();
-                String descripcio = jsonObject.get("DESCRIPCIO").toString();
-                double preu = Double.valueOf(jsonObject.get("PREU").toString());
-                boolean peticio;
-                if (jsonObject.get("PETICIO").toString().equals("1")){
-                    peticio = true;
-                } else {
-                    peticio = false;
-                }
-                boolean venta;
-                if (jsonObject.get("VENTA").toString().equals("1")){
-                    venta = true;
-                } else {
-                    venta = false;
-                }
-                boolean intercanvi;
-                if (jsonObject.get("INTERCANVI").toString().equals("1")){
-                    intercanvi = true;
-                } else {
-                    intercanvi = false;
-                }
-
-                boolean venut;
-                if (jsonObject.get("VENUT").toString().equals("1")){
-                    venut = true;
-                } else {
-                    venut = false;
-                }
-
-                //String regId = jsonObject.get("regid").toString();
-
-                String image = ServerAPI.getProductImage(""+id);
-                image = "" + image;
-                System.out.println(image);
-
-
-                // Crear producte i afegir a la llsita
-                if (!venut){
-                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi,image,null);
-                    listaProd.add(producte);
-                }
-
-            }
-
-            //Actualizar lista
-            adapter = new ListViewAdapterProd(this, listaProd);
-            ListViewDetail.setAdapter(adapter);
-
-            // stopping swipe refresh
-            swipeRefreshLayout.setRefreshing(false);
-
-        } catch (Exception e){
-            System.out.println("Error al pasar a JSON" + e);
-        }
-
-    }
 
     @Override
     public void onBackPressed() {

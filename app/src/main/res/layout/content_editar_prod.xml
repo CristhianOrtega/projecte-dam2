@@ -12,136 +12,146 @@
     tools:context="com.proyecto.dam2.librosvidal.Activities.EditarProd"
     android:background="@color/grisFondo">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <EditText
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView4" >
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:background="@color/White"
-            android:text="Titulo"
-            android:textSize="35dp"
-            android:textAlignment="center"
-            android:id="@+id/tituloEdit"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="match_parent">
 
-        <View style="@style/Divider"/>
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageEdit"
-            android:src="@color/colorAccent"
-            android:layout_below="@+id/titulodet"
-            android:layout_centerHorizontal="true"
-            android:layout_alignBottom="@+id/titulodet"
-            android:layout_weight="2" />
-
-        <View style="@style/Divider"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:background="@color/White"
-            android:text="0.00€"
-            android:textAlignment="center"
-            android:id="@+id/PreuEdit"
-            android:layout_below="@+id/imageView2"
-            android:layout_gravity="center"
-            android:textSize="30dp"
-            android:layout_centerHorizontal="true" />
-
-        <View style="@style/Divider"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:background="@color/White"
-            android:text="descripcio"
-            android:id="@+id/DescripcioEdit"
-            android:textSize="20dp"
-            android:layout_below="@+id/PreuDet"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_weight="1" />
-
-        <View style="@style/Divider"/>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/DescripcioDet"
-            android:id="@+id/tableRow"
-            android:layout_weight="0.2">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:background="@color/White"
-                android:layout_marginRight="5dp"
-                android:text="Venta"
-                android:id="@+id/ventaEdit"
-                android:layout_weight="1"
+                android:text="Titulo"
+                android:textSize="35dp"
                 android:textAlignment="center"
-                android:layout_gravity="center" />
+                android:id="@+id/tituloEdit"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_marginRight="5dp"
+            <View style="@style/Divider"/>
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/imageEdit"
+                android:src="@color/colorAccent"
+                android:layout_below="@+id/titulodet"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@+id/titulodet"
+                android:onClick="dialogPhoto"
+                android:layout_weight="2" />
+
+            <View style="@style/Divider"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:background="@color/White"
-                android:text="Intercambio"
-                android:id="@+id/intercanviEdit"
+                android:text="0.00€"
                 android:textAlignment="center"
-                android:layout_weight="1"/>
+                android:id="@+id/PreuEdit"
+                android:layout_below="@+id/imageDet"
+                android:layout_gravity="center"
+                android:textSize="30dp"
+                android:layout_centerHorizontal="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+            <View style="@style/Divider"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:background="@color/White"
-                android:text="Peticion"
-                android:id="@+id/peticioEdit"
-                android:textAlignment="center"
-                android:layout_weight="1"/>
-        </TableRow>
+                android:text="descripcio"
+                android:id="@+id/DescripcioEdit"
+                android:textSize="20dp"
+                android:layout_below="@+id/PreuDet"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1" />
 
-        <View style="@style/Divider"/>
+            <View style="@style/Divider"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/DescripcioDet"
+                android:id="@+id/tableRow"
+                android:layout_weight="0.2">
 
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:text="Editar"
-            android:id="@+id/buttonEditarProd"
-            android:layout_below="@+id/tableRow"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@color/White"
+                    android:layout_marginRight="5dp"
+                    android:text="Venta"
+                    android:id="@+id/ventaEdit"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/White"
+                    android:text="Intercambio"
+                    android:id="@+id/intercanviEdit"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@color/White"
+                    android:text="Peticion"
+                    android:id="@+id/peticioEdit"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"/>
+            </TableRow>
+
+            <View style="@style/Divider"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="Editar"
+                android:id="@+id/buttonEditarProd"
+                android:layout_below="@+id/tableRow"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

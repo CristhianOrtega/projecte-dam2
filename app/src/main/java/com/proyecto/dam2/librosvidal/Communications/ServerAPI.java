@@ -29,7 +29,7 @@ public class ServerAPI {
 
         while (!request.isReceived()) {
             try {
-                Thread.sleep(250);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
 
             }
@@ -75,7 +75,7 @@ public class ServerAPI {
             Log.i("COC", "Reponse del enviament del missatge ->" + response);
 
         }catch (Exception e) {
-            Log.i("COC","Error al enviar missatge per gcm");
+            Log.i("COC", "Error al enviar missatge per gcm");
         }
     }
 
@@ -109,4 +109,31 @@ public class ServerAPI {
         else{return false;}
     }
 
+    public static boolean eliminarProd(String idProd){
+
+        // --- Save regid --------------------------------------------------------------------------
+        String response = "";
+        HashMap<String,String> postParams = new HashMap<>();
+        postParams.put("action","delete_product");
+        postParams.put("id_product",idProd);
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
+
+        HttpConnection request = new HttpConnection(url, postParams,
+                "login");
+
+        while (!request.isReceived()) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+        response = request.getResponse();
+
+        Log.i("COC", "SAve regID->" + response);
+
+        if (response.equals("true")){return true;}
+        else{return false;}
+    }
 }
