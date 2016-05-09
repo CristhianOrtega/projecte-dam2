@@ -202,6 +202,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             editor.remove("PERFIL");
             editor.remove("ROL");
             editor.remove("STRINGIMAGE");
+            editor.remove("REGID");
             editor.commit();
             finish();
             startActivity(getIntent());

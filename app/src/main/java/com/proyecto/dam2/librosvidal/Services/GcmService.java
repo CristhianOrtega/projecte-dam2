@@ -32,6 +32,8 @@ import org.json.JSONObject;
  */
 public class GcmService extends IntentService {
 
+
+    // https://iowme.com/beta/lib/gcm.php?test=10&message=hola&id_gcm=APA91bEbbgAD0ezj8a26C0psgOizTJakqrQ3rGGU1Awj_t33t38qicvOedkohAriTO5hp_av4yPMF52ix3Irso2STDmG1_91FlwTdMT-WsPHRRwqcQZYMgX9VxrCHy2AQnkL-NQv_01E&api_key=AIzaSyDOdHZFZfhX_YCUrahJQhvLrPNcGx901ho
     static final public String COPA_RESULT = "com.proyecto.dam2.librosvidal.Services.GcmService.REQUEST_PROCESSED";
     static final public String COPA_MESSAGE = "com.proyecto.dam2.librosvidal.Services.GcmService.COPA_MSG";
     private static LocalBroadcastManager broadcaster;

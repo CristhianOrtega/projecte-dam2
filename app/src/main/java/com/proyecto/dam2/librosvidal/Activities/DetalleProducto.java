@@ -127,7 +127,7 @@ public class DetalleProducto extends AppCompatActivity
         }
 
         AQuery aq = new AQuery(this);
-        aq.id(imageDet).image(producte.getFoto(),true,true);
+        aq.id(findViewById(R.id.imageDet)).image(producte.getFoto(),true,true);
         System.out.println(producte.getFoto());
 
 
@@ -181,18 +181,45 @@ public class DetalleProducto extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.buscarProdMenu) {
+            Intent i = new Intent(this, Buscar.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (id == R.id.PerfilMenu) {
+            Intent i = new Intent(this, VerPerfil.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.ChatMenu) {
+            Intent i = new Intent(this, Chat.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.inicio) {
+            Intent i = new Intent(this, PantallaPrincipal.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (id == R.id.loginMenu) {
+            Intent i = new Intent(this, LoginActivity.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        else if (id == R.id.logoutMenu) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("login", false);
+            editor.remove("ID");
+            editor.remove("NOM");
+            editor.remove("COGNOMS");
+            editor.remove("EMAIL");
+            editor.remove("IMAGEPERFIL");
+            editor.remove("PERFIL");
+            editor.remove("ROL");
+            editor.remove("STRINGIMAGE");
+            editor.remove("REGID");
+            editor.commit();
+            finish();
+            startActivity(getIntent());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
