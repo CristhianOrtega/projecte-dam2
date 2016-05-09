@@ -131,6 +131,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onRefresh() {
+        listaProd = new ArrayList<>();
         CargarProds.obtenirProds(listaProd);
 
         //Actualizar lista
