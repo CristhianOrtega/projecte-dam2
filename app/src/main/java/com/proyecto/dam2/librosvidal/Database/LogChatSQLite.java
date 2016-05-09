@@ -5,6 +5,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.proyecto.dam2.librosvidal.Clases.Message;
+import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
+
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -46,17 +50,29 @@ public class LogChatSQLite extends SQLiteOpenHelper {
     }
 
 
-    public Vector listaMensajes(int regID) {
-        Vector result = new Vector();
+    public ArrayList listaMensajes(String regID, Context context) {
+        ArrayList<Message> result = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
        /* Cursor cursor = db.rawQuery("SELECT puntos, nombre FROM " +
                 "puntuaciones ORDER BY puntos DESC LIMIT " +regID, null);*/
+
+
         Cursor cursor = db.rawQuery("SELECT regID, missatge, fecha, nomUser  FROM " +
                 "logChat WHERE regID = '"+regID+"'",null);
+
+
         while (cursor.moveToNext()){
 
             //           get regID                 get Missatge            get Fecha              get NomUser
-            result.add(cursor.getString(0)+" " +cursor.getString(1)+" "+cursor.getLong(2)+" "+cursor.getString(3));
+            // result.add(cursor.getString(0)+" " +cursor.getString(1)+" "+cursor.getLong(2)+" "+cursor.getString(3));
+
+
+            String reg = cursor.getString(0);
+            String regPref = PreferencesUser.getPreference("regId", context);
+            boolean isSelf = false;
+            if (reg.equals(regPref)){ isSelf = true;}
+            Message m =  new Message(cursor.getString(3),cursor.getString(1),cursor.getString(0),isSelf);
+            result.add(m);
 
         }
         cursor.close();

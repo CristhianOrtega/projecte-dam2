@@ -36,6 +36,7 @@ import android.widget.TextView;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Services.ServiceCommunicator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -395,7 +396,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         editor.putString("STRINGIMAGE", stringimage);
                         editor.commit();
 
-                        // todo arrancar servei de missatgeria
+                        // arrancar servei de missatgeria
+                        startService(new Intent(context, ServiceCommunicator.class));
 
                         return true;
 
