@@ -2,6 +2,8 @@ package com.proyecto.dam2.librosvidal.Communications;
 
 import android.util.Log;
 
+import com.proyecto.dam2.librosvidal.Utils.Google;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -69,6 +71,10 @@ public class HttpConnection {
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("POST");
+            if(from.equals("chat")){
+                conn.setRequestProperty("Content-Type","application/json");
+                conn.setRequestProperty("Authorization", "key="+Google.ClauServer);
+            }
             conn.setDoInput(true);
             conn.setDoOutput(true);
 

@@ -276,7 +276,7 @@ public class NuevoProducto extends AppCompatActivity implements NavigationView.O
             postParams.put("peticio", String.valueOf(inputPeticio.isChecked()));
             postParams.put("venta", String.valueOf(inputVenta.isChecked()));
             postParams.put("intercanvi", String.valueOf(inputIntercanvi.isChecked()));
-            postParams.put("regid", PreferencesUser.getPreference("regId",context));
+            postParams.put("regid", PreferencesUser.getPreference("REGID",context));
             postParams.put("imatge", imatge);
 
             String url = "http://programacion.cocinassobreruedas.com/api.php";

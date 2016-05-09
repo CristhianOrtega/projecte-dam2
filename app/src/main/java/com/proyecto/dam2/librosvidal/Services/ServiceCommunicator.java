@@ -13,6 +13,8 @@ import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 /**
  * Created by Mobile on 05/05/2016.
  */
+
+
 public class ServiceCommunicator extends IntentService {
 
     public ServiceCommunicator() {
@@ -22,16 +24,19 @@ public class ServiceCommunicator extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        Log.i("COC", "*********************************************************************");
+        Log.i("COC", "   STARTING SERVICE....");
 
         while (true) {
 
-            Log.i("COC", "--> processQueue()");
+
             Message message =  new Message();
             try {
 
                 if(!QueueMessages.MessageQueue.isEmpty()){
+                    Log.i("COC", "    ->  Missatge en cua ");
                     message = QueueMessages.MessageQueue.pop();
-                    ServerAPI.sendMessageByGCM(message.getRegIDFor(),message.getMessage());
+                    ServerAPI.postToGCM(message.getRegIDFor(),message.getMessage());
                 }
 
                 Thread.sleep(500);
@@ -40,8 +45,6 @@ public class ServiceCommunicator extends IntentService {
                 QueueMessages.MessageQueue.push(message);
                 e.printStackTrace();
                 Log.i("COC", "******************************************** Error service message");
-
-
             }
         }
     }

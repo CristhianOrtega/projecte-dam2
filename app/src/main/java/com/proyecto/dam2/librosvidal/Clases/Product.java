@@ -29,6 +29,7 @@ public class Product implements Serializable{
         this.venta = venta;
         this.intercanvi = intercanvi;
         this.foto = foto;
+        this.regId = regId;
     }
 
     public String getRegId() {

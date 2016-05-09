@@ -36,6 +36,7 @@ public class ConversaActivity extends AppCompatActivity {
         // Carregar dades del producte per si ve de clicar el boto de contacta
         if (getIntent().getSerializableExtra("Producte")!=null) {
             producte = (Product) getIntent().getSerializableExtra("Producte");
+            System.out.println("PROVA CHAT   -    ENTRA PER PER MENU DE PRODCUTE");
         }
 
         // Carregar dades si ve per la notificació.
@@ -43,17 +44,21 @@ public class ConversaActivity extends AppCompatActivity {
             regID = getIntent().getStringExtra("regId").toString();
             LogChatSQLite BD = new LogChatSQLite(context);
             ArrayList<Message> missatges = BD.listaMensajes(regID,context);
+            System.out.println("PROVA CHAT   -    ENTRA PER NOTIFICACIÓ");
+
         }
 
 
         // CARGAR ELEMENTOS EN EL LIST VIEW
         listaMessages = new ArrayList<>();
 
+        /*
         // prova
         Message m = new Message("Cristhian","Hola estoy interesado en tu libro",producte.getRegId(),true);
         listaMessages.add(m);
         Message m1 = new Message("Jorge","Hola! Cuando y donde quieres quedar?",producte.getRegId(),false);
         listaMessages.add(m1);
+        */
 
         updateList();
 
@@ -73,6 +78,8 @@ public class ConversaActivity extends AppCompatActivity {
             // crear objecte missatge
             String usuari = PreferencesUser.getPreference("NOM",context);
             String regID = producte.getRegId();
+
+            System.out.println(" ** ENVIAMENT DE "+usuari+" ** \n MISSATGE: "+text+" \n REGID: "+regID);
 
             Message message = new Message(usuari,text,regID,true);
 

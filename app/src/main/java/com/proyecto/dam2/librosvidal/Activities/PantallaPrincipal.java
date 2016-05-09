@@ -23,6 +23,7 @@ import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
 import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Services.ServiceCommunicator;
 import com.proyecto.dam2.librosvidal.Utils.CargarProds;
 import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 import org.json.JSONArray;
@@ -126,6 +127,12 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         //Showing Swipe Refresh animation on activity create
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        if(prefs.getBoolean("login", false)){
+            // arrancar servei de missatgeria
+            Intent intent = new Intent(context, ServiceCommunicator.class);
+            startService(intent);
+        }
 
     }
 

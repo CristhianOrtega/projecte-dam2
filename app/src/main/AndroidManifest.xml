@@ -91,6 +91,17 @@
             android:label="@string/title_activity_editar_prod"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <service
+            android:name=".Services.ServiceCommunicator"
+            android:enabled="true" />
+
+        <service
+            android:name=".Services.GcmService"
+            android:exported="false" />
+
+
     </application>
 
 </manifest>

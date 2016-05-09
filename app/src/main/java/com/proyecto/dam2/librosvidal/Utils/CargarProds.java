@@ -57,6 +57,7 @@ public class CargarProds {
                 String descripcio = jsonObject.get("DESCRIPCIO").getAsString();
                 String rutaImage = jsonObject.get("ID_IMAGE").getAsString();
                 String image = rutaImage.replace("\",", "");
+                String regId =  jsonObject.get("REGID").toString();
 
                 double preu = jsonObject.get("PREU").getAsDouble();
                 boolean peticio;
@@ -89,7 +90,7 @@ public class CargarProds {
 
                 if (!venut){
                     //ARREGLAR REGID!!!
-                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi, image,null);
+                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi, image,regId);
                     listaProd.add(producte);
                 }
 

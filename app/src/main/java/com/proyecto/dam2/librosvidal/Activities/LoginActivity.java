@@ -381,6 +381,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     String stringimage = jsonObject.get("STRINGIMAGE").toString();
 
+                    String regId = jsonObject.getString("REGID").toString();
+
 
 
                     if (succes.equals("1")) {
@@ -393,11 +395,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         editor.putString("ROL", rol);
                         editor.putString("IMAGEPERFIL", image);
                         editor.putString("PERFIL", perfil);
+                        editor.putString("REGID", regId);
                         editor.putString("STRINGIMAGE", stringimage);
                         editor.commit();
-
-                        // arrancar servei de missatgeria
-                        startService(new Intent(context, ServiceCommunicator.class));
 
                         return true;
 
@@ -430,7 +430,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+
                 finish();
+
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

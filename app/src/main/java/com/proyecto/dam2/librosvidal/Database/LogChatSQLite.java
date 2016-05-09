@@ -43,8 +43,8 @@ public class LogChatSQLite extends SQLiteOpenHelper {
     public void guardarMensaje(String regID, String missatge, long fecha, String nomUser) {
 
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO logChat VALUES ( null, "+
-                regID+", '"+missatge+"', "+fecha+"', "+nomUser+")");
+        db.execSQL("INSERT INTO logChat VALUES ( null, '"+
+                regID+"', '"+missatge+"', '"+fecha+"', '"+nomUser+"')");
         db.close();
 
     }
