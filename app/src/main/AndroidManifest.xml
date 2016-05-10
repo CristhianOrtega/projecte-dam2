@@ -23,16 +23,7 @@
             android:name=".Activities.PantallaPrincipal"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Activities.Configuracion"
             android:label="@string/title_activity_configuracion"
@@ -101,6 +92,16 @@
             android:name=".Services.GcmService"
             android:exported="false" />
 
+
+        <receiver
+            android:name=".EventHandlers.GcmBroadcastReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.example.gcm" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

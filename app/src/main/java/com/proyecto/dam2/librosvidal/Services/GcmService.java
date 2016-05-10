@@ -33,7 +33,7 @@ import org.json.JSONObject;
 public class GcmService extends IntentService {
 
 
-    // https://iowme.com/beta/lib/gcm.php?test=10&message=hola&id_gcm=APA91bEbbgAD0ezj8a26C0psgOizTJakqrQ3rGGU1Awj_t33t38qicvOedkohAriTO5hp_av4yPMF52ix3Irso2STDmG1_91FlwTdMT-WsPHRRwqcQZYMgX9VxrCHy2AQnkL-NQv_01E&api_key=AIzaSyDOdHZFZfhX_YCUrahJQhvLrPNcGx901ho
+    // https://iowme.com/beta/lib/gcm.php?test=10&message=hola&id_gcm=APA91bH7sMQuJfsG3cYQZcVTf7suQMJEm518kJTJJsMxcOW0ZfXZdkQe3YgfSZw8-psRPdvZACHu7r5lo3MdsHPbVu-DNDpQhK4_FEiuqZG8RCm3FHdF71cX8ZxRr6y9r4-oPnvILfE3&api_key=AIzaSyDOdHZFZfhX_YCUrahJQhvLrPNcGx901ho
     static final public String COPA_RESULT = "com.proyecto.dam2.librosvidal.Services.GcmService.REQUEST_PROCESSED";
     static final public String COPA_MESSAGE = "com.proyecto.dam2.librosvidal.Services.GcmService.COPA_MSG";
     private static LocalBroadcastManager broadcaster;
@@ -106,29 +106,28 @@ public class GcmService extends IntentService {
 
                 try {
 
-                    JSONObject json = new JSONObject(extras.getString("message"));
-                    String action = json.get("action").toString();
+                   /* JSONObject json = new JSONObject(extras.getString("message"));
+                    String action = json.get("action").toString();*/
 
-                    if (action.equals("communicator")) {
+                    // if (action.equals("communicator")) {
+                    if (!extras.getString("message").isEmpty()) {
 
-
-                        String regId = json.getString("regId");
-                        String missatge = json.getString("text");
+                        String missatge = extras.getString("message");
                         long fecha = System.currentTimeMillis();
                         String nomUser = "";
 
                         // mostrar notificació
-                        showNotification(regId,nomUser);
+                        showNotification("kk",missatge);
 
                         // inserir missatge a la bd
                         LogChatSQLite BD = new LogChatSQLite(context);
-                        BD.guardarMensaje(regId,missatge,fecha,nomUser);
+                        BD.guardarMensaje("kk",missatge,fecha,nomUser);
 
 
                     }
 
 
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -142,7 +141,7 @@ public class GcmService extends IntentService {
     public void showNotification(String regID,String nom) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        //.setSmallIcon(R.drawable.notification_icon)
+                        .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                         .setContentTitle("LibrosVidal")
                         .setContentText("Nuevo mensaje de "+nom);
         // Creates an explicit intent for an Activity in your app
