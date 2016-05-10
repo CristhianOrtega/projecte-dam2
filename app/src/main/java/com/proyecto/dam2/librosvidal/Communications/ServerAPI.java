@@ -1,7 +1,9 @@
 package com.proyecto.dam2.librosvidal.Communications;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.Utils.Google;
 
 import org.json.JSONArray;
@@ -61,9 +63,10 @@ public class ServerAPI {
     }
 
 
-    public static void postToGCM(String regid,String message){
+    public static void postToGCM(String regid,String message,String from,Context context){
 
-        String content = "{\"to\" : "+regid+",\"data\" : {\"message\": \""+message+"\"},}";
+        //String content = "{\"to\" : "+regid+",\"data\" : {\"message\": \""+message+"\"},}";
+        String content = "{\"to\" : \""+regid+"\",\"data\" : {\"message\": \""+message+"\",\"user\": \""+from+"\",\"action\": \"chat\",\"regId\": \""+ PreferencesUser.getPreference("REGID",context)+"\"},}";
 
         try{
 

@@ -29,7 +29,7 @@ public class LogChatSQLite extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE logChat ("+
                 "_idMessage INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                "regID TEXT, missatge TEXT, fecha LONG, nomUser TEXT)");
+                "regID TEXT, missatge TEXT, fecha LONG, nomUser TEXT, isSelf TEXT)");
 
     }
 
@@ -40,11 +40,11 @@ public class LogChatSQLite extends SQLiteOpenHelper {
     }
 
 
-    public void guardarMensaje(String regID, String missatge, long fecha, String nomUser) {
+    public void guardarMensaje(String regID, String missatge, long fecha, String nomUser, String isSelf) {
 
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO logChat VALUES ( null, '"+
-                regID+"', '"+missatge+"', '"+fecha+"', '"+nomUser+"')");
+                regID+"', '"+missatge+"', '"+fecha+"', '"+nomUser+"','"+isSelf+"')");
         db.close();
 
     }
@@ -57,7 +57,7 @@ public class LogChatSQLite extends SQLiteOpenHelper {
                 "puntuaciones ORDER BY puntos DESC LIMIT " +regID, null);*/
 
 
-        Cursor cursor = db.rawQuery("SELECT regID, missatge, fecha, nomUser  FROM " +
+        Cursor cursor = db.rawQuery("SELECT regID, missatge, fecha, nomUser, isSelf  FROM " +
                 "logChat WHERE regID = '"+regID+"'",null);
 
 
@@ -67,10 +67,10 @@ public class LogChatSQLite extends SQLiteOpenHelper {
             // result.add(cursor.getString(0)+" " +cursor.getString(1)+" "+cursor.getLong(2)+" "+cursor.getString(3));
 
 
-            String reg = cursor.getString(0);
-            String regPref = PreferencesUser.getPreference("regId", context);
+            String nomBD = cursor.getString(3);
+            String nomPR = PreferencesUser.getPreference("NOM", context);
             boolean isSelf = false;
-            if (reg.equals(regPref)){ isSelf = true;}
+            if (nomBD.equals(nomPR)){ isSelf = true;}
             Message m =  new Message(cursor.getString(3),cursor.getString(1),cursor.getString(0),isSelf);
             result.add(m);
 

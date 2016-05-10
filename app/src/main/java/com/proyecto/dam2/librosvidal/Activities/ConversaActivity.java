@@ -15,6 +15,7 @@ import com.proyecto.dam2.librosvidal.Database.LogChatSQLite;
 import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -25,40 +26,44 @@ public class ConversaActivity extends AppCompatActivity {
     private ListViewAdapterMessages adapter;
     Product producte;
     Context context;
+    String regID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversa);
         context = this;
-        String regID;
 
         // Carregar dades del producte per si ve de clicar el boto de contacta
-        if (getIntent().getSerializableExtra("Producte")!=null) {
+        if (getIntent().getSerializableExtra("Producte") != null) {
             producte = (Product) getIntent().getSerializableExtra("Producte");
             System.out.println("PROVA CHAT   -    ENTRA PER PER MENU DE PRODCUTE");
+            regID = producte.getRegId().replace("\"","");
+            LogChatSQLite BD = new LogChatSQLite(context);
+            if (BD.listaMensajes(regID,context) != null){
+                listaMessages =BD.listaMensajes(regID,context) ;
+            }else{
+                listaMessages = new ArrayList<>();
+            }
+            System.out.println("    REG_ID PARA: "+regID);
+            System.out.println("    REG_ID TUYO: "+PreferencesUser.getPreference("REGID",context));
+
         }
 
         // Carregar dades si ve per la notificació.
-        if (getIntent().getSerializableExtra("regID")!=null){
-            regID = getIntent().getStringExtra("regId").toString();
+        if (getIntent().getStringExtra("regID") != null){
+            regID = getIntent().getStringExtra("regID").toString();
             LogChatSQLite BD = new LogChatSQLite(context);
-            ArrayList<Message> missatges = BD.listaMensajes(regID,context);
+            listaMessages = BD.listaMensajes(regID,context);
             System.out.println("PROVA CHAT   -    ENTRA PER NOTIFICACIÓ");
+            System.out.println("    REG_ID PARA: "+regID);
+            System.out.println("    REG_ID TUYO: "+PreferencesUser.getPreference("REGID",context));
 
         }
 
 
         // CARGAR ELEMENTOS EN EL LIST VIEW
-        listaMessages = new ArrayList<>();
-
-        /*
-        // prova
-        Message m = new Message("Cristhian","Hola estoy interesado en tu libro",producte.getRegId(),true);
-        listaMessages.add(m);
-        Message m1 = new Message("Jorge","Hola! Cuando y donde quieres quedar?",producte.getRegId(),false);
-        listaMessages.add(m1);
-        */
 
         updateList();
 
@@ -77,7 +82,7 @@ public class ConversaActivity extends AppCompatActivity {
 
             // crear objecte missatge
             String usuari = PreferencesUser.getPreference("NOM",context);
-            String regID = producte.getRegId();
+
 
             System.out.println(" ** ENVIAMENT DE "+usuari+" ** \n MISSATGE: "+text+" \n REGID: "+regID);
 
@@ -85,7 +90,7 @@ public class ConversaActivity extends AppCompatActivity {
 
             // guardar el missatge a la BD
             LogChatSQLite bd = new LogChatSQLite(context);
-            bd.guardarMensaje(regID,text,System.currentTimeMillis(),usuari);
+            bd.guardarMensaje(regID,text,System.currentTimeMillis(),usuari,"true");
 
             //afegir-lo a la llista.
             listaMessages.add(message);

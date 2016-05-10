@@ -1,6 +1,7 @@
 package com.proyecto.dam2.librosvidal.Services;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -106,22 +107,27 @@ public class GcmService extends IntentService {
 
                 try {
 
-                   /* JSONObject json = new JSONObject(extras.getString("message"));
-                    String action = json.get("action").toString();*/
+                    System.out.println("action - "+extras.getString("action"));
 
-                    // if (action.equals("communicator")) {
-                    if (!extras.getString("message").isEmpty()) {
+                    if (extras.getString("action").equals("chat")) {
+
+                        System.out.println("Message from  - "+extras.getString("user"));
+                        System.out.println("Message :  - "+extras.getString("message"));
+
+
 
                         String missatge = extras.getString("message");
                         long fecha = System.currentTimeMillis();
-                        String nomUser = "";
+                        String fromName = extras.getString("user");
+                        String regId = extras.getString("regId");
+
 
                         // mostrar notificació
-                        showNotification("kk",missatge);
+                        showNotification(regId,fromName);
 
                         // inserir missatge a la bd
                         LogChatSQLite BD = new LogChatSQLite(context);
-                        BD.guardarMensaje("kk",missatge,fecha,nomUser);
+                        BD.guardarMensaje(regId,missatge,fecha,fromName,"false");
 
 
                     }
@@ -139,14 +145,18 @@ public class GcmService extends IntentService {
     }
 
     public void showNotification(String regID,String nom) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("regID",regID);
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-                        .setContentTitle("LibrosVidal")
+                        .setSmallIcon(R.drawable.bg_messages)
+                        .setContentTitle("Libros Vidal")
                         .setContentText("Nuevo mensaje de "+nom);
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, ConversaActivity.class);
-        resultIntent.putExtra("regId",regID);
+        resultIntent.putExtra("regID",regID);
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
@@ -160,13 +170,17 @@ public class GcmService extends IntentService {
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
                         0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
+                        PendingIntent.FLAG_UPDATE_CURRENT,
+                        bundle
                 );
+
         mBuilder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.
         int mId = 0;
         mNotificationManager.notify(mId, mBuilder.build());
+
+
     }
 }

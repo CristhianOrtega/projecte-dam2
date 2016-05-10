@@ -2,6 +2,7 @@ package com.proyecto.dam2.librosvidal.Services;
 
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -16,7 +17,7 @@ import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 
 
 public class ServiceCommunicator extends IntentService {
-
+    Context context;
     public ServiceCommunicator() {
         super("Communicator");
     }
@@ -36,13 +37,29 @@ public class ServiceCommunicator extends IntentService {
                 if(!QueueMessages.MessageQueue.isEmpty()){
                     Log.i("COC", "    ->  Missatge en cua ");
                     message = QueueMessages.MessageQueue.pop();
-                    ServerAPI.postToGCM(message.getRegIDFor(),message.getMessage());
+                    ServerAPI.postToGCM(message.getRegIDFor(),message.getMessage(),message.getFromName(),context);
                 }
 
                 Thread.sleep(500);
 
             } catch (Exception e) {
                 QueueMessages.MessageQueue.push(message);
+                e.printStackTrace();
+                Log.i("COC", "******************************************** Error service message");
+            }
+
+            try {
+
+                if(!QueueMessages.MessageQueueEntrada.isEmpty()){
+                    Log.i("COC", "    ->  Missatge en cua d'entrada ");
+                    message = QueueMessages.MessageQueueEntrada.pop();
+                    // todo llença notificacio des de aqui.
+                }
+
+                Thread.sleep(500);
+
+            } catch (Exception e) {
+                QueueMessages.MessageQueueEntrada.push(message);
                 e.printStackTrace();
                 Log.i("COC", "******************************************** Error service message");
             }
@@ -53,6 +70,7 @@ public class ServiceCommunicator extends IntentService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+        context = this;
         return START_STICKY;
     }
 }
