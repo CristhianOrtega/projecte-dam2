@@ -89,7 +89,6 @@ public class CargarProds {
                 // Crear producte i afegir a la llsita
 
                 if (!venut){
-                    //ARREGLAR REGID!!!
                     Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi, image,regId);
                     listaProd.add(producte);
                 }
