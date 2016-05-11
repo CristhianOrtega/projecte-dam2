@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.proyecto.dam2.librosvidal.Clases.Contacte;
 import com.proyecto.dam2.librosvidal.Clases.Message;
 import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 
@@ -31,6 +32,10 @@ public class LogChatSQLite extends SQLiteOpenHelper {
                 "_idMessage INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "regID TEXT, missatge TEXT, fecha LONG, nomUser TEXT, isSelf TEXT)");
 
+        db.execSQL("CREATE TABLE conversa ("+
+                "_idConversa INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "regID TEXT, nomUser TEXT)");
+
     }
 
 
@@ -49,13 +54,19 @@ public class LogChatSQLite extends SQLiteOpenHelper {
 
     }
 
+    public void guardarConversa(String regID,String nomUser) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO conversa VALUES ( null, '"+
+                regID+"', '"+nomUser+"')");
+        db.close();
+
+    }
+
 
     public ArrayList listaMensajes(String regID, Context context) {
         ArrayList<Message> result = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-       /* Cursor cursor = db.rawQuery("SELECT puntos, nombre FROM " +
-                "puntuaciones ORDER BY puntos DESC LIMIT " +regID, null);*/
-
 
         Cursor cursor = db.rawQuery("SELECT regID, missatge, fecha, nomUser, isSelf  FROM " +
                 "logChat WHERE regID = '"+regID+"'",null);
@@ -71,6 +82,7 @@ public class LogChatSQLite extends SQLiteOpenHelper {
             String nomPR = PreferencesUser.getPreference("NOM", context);
             boolean isSelf = false;
             if (nomBD.equals(nomPR)){ isSelf = true;}
+
             Message m =  new Message(cursor.getString(3),cursor.getString(1),cursor.getString(0),isSelf);
             result.add(m);
 
@@ -79,6 +91,40 @@ public class LogChatSQLite extends SQLiteOpenHelper {
         db.close();
         return result;
 
+    }
+
+    public ArrayList listaChat(Context context) {
+        ArrayList<Contacte> result = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT regID, nomUser  FROM " +
+                "conversa",null);
+
+        while (cursor.moveToNext()){
+            Contacte c =  new Contacte(cursor.getString(1),cursor.getString(0));
+            result.add(c);
+        }
+
+        cursor.close();
+        db.close();
+        return result;
+
+    }
+
+    public String getLastMessage(String regID) {
+        SQLiteDatabase db = getReadableDatabase();
+        String result = "";
+
+        Cursor cursor = db.rawQuery("SELECT missatge FROM " +
+                "logChat WHERE regID = '"+regID+"' ORDER BY fecha ASC",null);
+
+        while (cursor.moveToNext()){
+            result = cursor.getString(0);
+        }
+
+        cursor.close();
+        db.close();
+        return result;
     }
 
 

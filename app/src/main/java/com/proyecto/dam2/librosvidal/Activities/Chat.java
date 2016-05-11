@@ -13,7 +13,9 @@ import android.widget.ListView;
 import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterChats;
 import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
 import com.proyecto.dam2.librosvidal.Clases.Contacte;
+import com.proyecto.dam2.librosvidal.Clases.Message;
 import com.proyecto.dam2.librosvidal.Clases.Product;
+import com.proyecto.dam2.librosvidal.Database.LogChatSQLite;
 import com.proyecto.dam2.librosvidal.R;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class Chat extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     private ArrayList<Contacte> listaChats;
     private ListViewAdapterChats adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Context context = this;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +34,13 @@ public class Chat extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         setContentView(R.layout.activity_chat);
         setupActionBar();
 
+        context = this;
 
         ListViewDetail = (ListView) findViewById(R.id.listChats);
 
-        listaChats = new ArrayList<>();
+        LogChatSQLite logChatSQLite = new LogChatSQLite(context);
+        listaChats =  logChatSQLite.listaChat(context);
+
         adapter = new ListViewAdapterChats(this, listaChats);
         ListViewDetail.setAdapter(adapter);
 
@@ -44,7 +49,8 @@ public class Chat extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(context, DetalleProducto.class);
+                Intent i = new Intent(context, ConversaActivity.class);
+                i.putExtra("regID",listaChats.get(position).getREGIDFOR());
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
@@ -57,9 +63,17 @@ public class Chat extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
     }
 
+
     @Override
     public void onRefresh() {
 
+        ListViewDetail = (ListView) findViewById(R.id.listChats);
+
+        LogChatSQLite logChatSQLite = new LogChatSQLite(context);
+        listaChats =  logChatSQLite.listaChat(context);
+
+        adapter = new ListViewAdapterChats(this, listaChats);
+        ListViewDetail.setAdapter(adapter);
 
     }
 

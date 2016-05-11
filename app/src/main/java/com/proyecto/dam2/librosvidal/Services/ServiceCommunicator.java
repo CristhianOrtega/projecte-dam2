@@ -48,21 +48,6 @@ public class ServiceCommunicator extends IntentService {
                 Log.i("COC", "******************************************** Error service message");
             }
 
-            try {
-
-                if(!QueueMessages.MessageQueueEntrada.isEmpty()){
-                    Log.i("COC", "    ->  Missatge en cua d'entrada ");
-                    message = QueueMessages.MessageQueueEntrada.pop();
-                    // todo llença notificacio des de aqui.
-                }
-
-                Thread.sleep(500);
-
-            } catch (Exception e) {
-                QueueMessages.MessageQueueEntrada.push(message);
-                e.printStackTrace();
-                Log.i("COC", "******************************************** Error service message");
-            }
         }
     }
 
