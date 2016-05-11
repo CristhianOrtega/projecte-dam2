@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
+import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 
@@ -228,11 +229,18 @@ public class DetalleProducto extends AppCompatActivity
     }
 
     public void onClickContacta(View view){
+        SharedPreferences prefs = context.getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
 
-        Intent i = new Intent(context, ConversaActivity.class );
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.putExtra("Producte",producte);
-        startActivity(i);
+        if(prefs.getBoolean("login", false)) {
+            Intent i = new Intent(context, ConversaActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.putExtra("Producte", producte);
+            startActivity(i);
+        }else{
+            Intent i = new Intent(context, LoginActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
 
     }
 

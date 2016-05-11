@@ -185,4 +185,35 @@ public class ServerAPI {
     }
 
 
+    public static boolean modifyRegIdProducts( int id , String regId){
+
+        // --- Save regid --------------------------------------------------------------------------
+        String response = "";
+        HashMap<String,String> postParams = new HashMap<>();
+        postParams.put("action","modify_regid");
+        postParams.put("id",id+"");
+        postParams.put("regid",regId);
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
+
+        HttpConnection request = new HttpConnection(url, postParams,
+                "login");
+
+        while (!request.isReceived()) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+        response = request.getResponse();
+
+        Log.i("COC", "Modify regID->" + response);
+
+        if (response.equals("true")){return true;}
+        else{return false;}
+
+    }
+
+
 }
