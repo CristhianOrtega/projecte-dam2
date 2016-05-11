@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Chat extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     private ListView ListViewDetail;
-    private ArrayList<Contacte> listaChats;
+    public static ArrayList<Contacte> listaChats;
     private ListViewAdapterChats adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Context context = this;

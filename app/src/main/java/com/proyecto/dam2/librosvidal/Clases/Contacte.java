@@ -9,6 +9,13 @@ public class Contacte {
     String nom;
     String lastMsg;
     String imagePerfilCont;
+    String regId;
+
+    public Contacte(String nom, String lastMsg, String regId) {
+        this.nom = nom;
+        this.lastMsg = lastMsg;
+        this.regId = regId;
+    }
 
     public String getNom() {
         return nom;
@@ -32,5 +39,13 @@ public class Contacte {
 
     public void setLastMsg(String lastMsg) {
         this.lastMsg = lastMsg;
+    }
+
+    public String getRegId() {
+        return regId;
+    }
+
+    public void setRegId(String regId) {
+        this.regId = regId;
     }
 }

@@ -15,8 +15,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.proyecto.dam2.librosvidal.Activities.Chat;
 import com.proyecto.dam2.librosvidal.Activities.ConversaActivity;
 import com.proyecto.dam2.librosvidal.Activities.PantallaPrincipal;
+import com.proyecto.dam2.librosvidal.Clases.Contacte;
 import com.proyecto.dam2.librosvidal.Database.LogChatSQLite;
 import com.proyecto.dam2.librosvidal.EventHandlers.GcmBroadcastReceiver;
 import com.proyecto.dam2.librosvidal.R;
@@ -123,12 +125,15 @@ public class GcmService extends IntentService {
 
 
                         // mostrar notificació
-                        showNotification(regId,fromName);
+                        showNotification(regId, fromName);
 
                         // inserir missatge a la bd
                         LogChatSQLite BD = new LogChatSQLite(context);
-                        BD.guardarMensaje(regId,missatge,fecha,fromName,"false");
+                        BD.guardarMensaje(regId, missatge, fecha, fromName, "false");
 
+
+                        Contacte contacto = new Contacte(fromName,missatge,regId);
+                        Chat.listaChats.add(contacto);
 
                     }
 

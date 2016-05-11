@@ -21,6 +21,11 @@
             android:title="Chats" />
 
         <item
+            android:id="@+id/contactarMenu"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Contactar" />
+
+        <item
             android:id="@+id/logoutMenu"
             android:icon="@drawable/ic_sync_black_24dp"
             android:title="Logout" />

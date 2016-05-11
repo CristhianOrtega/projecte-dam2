@@ -189,6 +189,10 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             Intent i = new Intent(this, LoginActivity.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+        } else if (id == R.id.contactarMenu) {
+            Intent i = new Intent(this, Contactar.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
         }
 
         else if (id == R.id.logoutMenu) {
