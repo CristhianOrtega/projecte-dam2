@@ -2,6 +2,7 @@ package com.proyecto.dam2.librosvidal.Communications;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -65,7 +66,7 @@ public class RegisterGCM {
      */
     public static String getRegistrationId(Context context) {
 
-        String registrationId = PreferencesUser.getPreference("regId", context);
+        String registrationId = PreferencesUser.getPreference("REGID", context);
 
         if (registrationId == "" ) {
             Log.i("GCM", "Registration not found.");
@@ -74,6 +75,11 @@ public class RegisterGCM {
         // Check if app was updated; if so, it must clear the registration ID
         // since the existing registration ID is not guaranteed to work with
         // the new app version.
+
+        if (PreferencesUser.getPreference("appVersion",context).equals("")){
+            PreferencesUser.setPreference("appVersion","0",context);
+        }
+
         int registeredVersion = Integer.valueOf(PreferencesUser.getPreference("appVersion",context));
 
         int currentVersion = getAppVersion(context);
@@ -183,12 +189,17 @@ public class RegisterGCM {
         Log.i("GCM", "Saving regId on app version " + appVersion);
 
 
-        PreferencesUser.setPreference("regId", regId, context);
+        PreferencesUser.setPreference("REGID", regId, context);
         PreferencesUser.setPreference("appVersion", appVersion + "",context);
 
         String email = PreferencesUser.getPreference("email",context);
 
         ServerAPI.saveRegId(email,regId);
+
+        SharedPreferences prefs = context.getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
+        int id = prefs.getInt("ID", 0);
+
+        ServerAPI.modifyRegIdProducts(id,regId);
 
     }
 

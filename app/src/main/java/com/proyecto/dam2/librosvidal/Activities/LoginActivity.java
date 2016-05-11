@@ -3,6 +3,7 @@ package com.proyecto.dam2.librosvidal.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
+import com.proyecto.dam2.librosvidal.Communications.RegisterGCM;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Services.ServiceCommunicator;
 
@@ -53,6 +55,8 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     Context context = this;
+    Activity Activitycontext;
+
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -80,6 +84,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Activitycontext = this;
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -313,6 +320,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mEmail;
         private final String mPassword;
 
+
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
@@ -399,6 +407,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         editor.putString("STRINGIMAGE", stringimage);
                         editor.commit();
 
+                        RegisterGCM.register(Activitycontext);
+
                         return true;
 
                     } else {
@@ -407,6 +417,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         editor.remove("NOM");
                         editor.remove("EMAIL");
                         editor.remove("ROL");
+                        editor.remove("REGID");
                         editor.remove("IMAGEPERFIL");
                         editor.remove("PERFIL");
                         editor.commit();
@@ -414,12 +425,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         return false;
                     }
 
+
                 }
 
 
             } catch (Exception e) {
                 System.out.println("Error al pasar a JSON" + e);
             }
+
 
             return false;
         }
