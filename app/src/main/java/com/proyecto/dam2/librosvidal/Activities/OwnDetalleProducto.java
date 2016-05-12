@@ -4,27 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
-import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
 import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
 
-public class DetalleProducto extends AppCompatActivity
+public class OwnDetalleProducto extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Product producte;
@@ -38,14 +37,9 @@ public class DetalleProducto extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
-        String rol = prefs.getString("ROL", "usuari");
         context = this;
-        System.out.println("ROL: " + rol);
-        if (rol.equals("admin")){
-            setContentView(R.layout.activity_detalle_producto_admin);
-        } else {
-            setContentView(R.layout.activity_detalle_producto);
-        }
+        setContentView(R.layout.activity_detalle_producto_admin);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

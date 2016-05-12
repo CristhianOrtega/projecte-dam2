@@ -5,34 +5,32 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterProd;
 import com.proyecto.dam2.librosvidal.Clases.Product;
-import com.proyecto.dam2.librosvidal.Communications.HttpConnection;
-import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.R;
-import com.proyecto.dam2.librosvidal.Services.GcmService;
 import com.proyecto.dam2.librosvidal.Services.ServiceCommunicator;
 import com.proyecto.dam2.librosvidal.Utils.CargarProds;
 import com.proyecto.dam2.librosvidal.Utils.DatosNavigation;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class PantallaPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
+import java.util.ArrayList;
+
+/**
+ * Created by david on 12/5/16.
+ */
+public class OwnProductsList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener  {
     Context context = this;
     NavigationView navigationView;
     ListView ListViewDetail;
@@ -49,7 +47,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         navigationView.getMenu().clear();
         System.out.println("Entra desde onResume");
         //cargaPreferenciasUser();
-        DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView,context);
+        DatosNavigation.cargaPreferenciasUser(prefs, navigationView, headerView, context);
 
     }
 
@@ -141,7 +139,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
     @Override
     public void onRefresh() {
         listaProd = new ArrayList<>();
-        CargarProds.obtenirProds(listaProd);
+        CargarProds.obtenirProdsOwn(listaProd,prefs.getString("ID",""));
 
         //Actualizar lista
         adapter = new ListViewAdapterProd(this, listaProd);
@@ -199,7 +197,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
             startActivity(i);
         }
         else if (id == R.id.OwnProds) {
-            Intent i = new Intent(this, OwnProductsList.class );
+            Intent i = new Intent(this, OwnDetalleProducto.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         }
@@ -225,6 +223,4 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }

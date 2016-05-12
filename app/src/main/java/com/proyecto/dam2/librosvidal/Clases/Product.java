@@ -17,10 +17,11 @@ public class Product implements Serializable{
     boolean peticio;
     boolean venta;
     boolean intercanvi;
+    String categoria;
     String regId;
 
 
-    public Product(int id, String titol, String descripcio, double preu, boolean peticio, boolean venta, boolean intercanvi, String foto,String regId) {
+    public Product(int id, String titol, String descripcio, double preu, boolean peticio, boolean venta, boolean intercanvi, String foto,String regId, String categoria) {
         this.id = id;
         this.titol = titol;
         this.descripcio = descripcio;
@@ -30,6 +31,7 @@ public class Product implements Serializable{
         this.intercanvi = intercanvi;
         this.foto = foto;
         this.regId = regId;
+        this.categoria = categoria;
     }
 
     public String getRegId() {
@@ -102,5 +104,13 @@ public class Product implements Serializable{
 
     public void setIntercanvi(boolean intercanvi) {
         this.intercanvi = intercanvi;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }

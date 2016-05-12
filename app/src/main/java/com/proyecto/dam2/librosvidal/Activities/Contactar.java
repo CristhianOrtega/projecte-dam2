@@ -36,8 +36,8 @@ public class Contactar extends AppCompatActivity {
         try {
             sender.sendMail("Asunto del mail",
                     "Cuerpo del mail",
-                    "david.martinez.cvb@gmail.com",
-                    "david.martinez.cvb@gmail.com");
+                    "Correo de origen",
+                    "Correo de destino");
         } catch (Exception e) {
             Log.e("SendMail", e.getMessage(), e);
         }

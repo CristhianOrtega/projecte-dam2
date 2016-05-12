@@ -58,6 +58,7 @@ public class CargarProds {
                 String rutaImage = jsonObject.get("ID_IMAGE").getAsString();
                 String image = rutaImage.replace("\",", "");
                 String regId =  jsonObject.get("REGID").toString();
+                String categoria =  jsonObject.get("CATEGORIA").toString();
 
                 double preu = jsonObject.get("PREU").getAsDouble();
                 boolean peticio;
@@ -89,7 +90,97 @@ public class CargarProds {
                 // Crear producte i afegir a la llsita
 
                 if (!venut){
-                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi, image,regId);
+                    Product producte = new Product(id,titol,descripcio,preu,peticio,venta,intercanvi, image,regId,categoria);
+                    listaProd.add(producte);
+                }
+
+
+            }
+
+
+        } catch (Exception e){
+            System.out.println("Error al pasar a JSON" + e);
+        }
+
+    }
+
+
+
+    public static void obtenirProdsOwn(ArrayList<Product> listaProd, String id){
+        String response = "";
+        HashMap<String,String> postParams = new HashMap<>();
+        //listaProd = new ArrayList<>();
+        postParams.put("action","return_all_products_byid");
+        postParams.put("id_user",id);
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
+
+        HttpConnection request = new HttpConnection(url, postParams,
+                "login");
+
+        while (!request.isReceived()) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+
+        response = request.getResponse();
+
+        Log.i("COC", "Login->" + response);
+
+        //RECOLLIR DADES DELS PRODUCTES I AFEGIR-LOS AL ARRAY DE PRODUCTES
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            for (int i = 0; i<jsonArray.length();i++){
+
+                String jsonString = jsonArray.get(i).toString();
+                System.out.println(jsonString);
+                JsonParser jsonParser = new JsonParser();
+                JsonElement jsonElement = jsonParser.parse(jsonString);
+                JsonObject jsonObject = jsonElement.getAsJsonObject();
+                //System.out.println(jsonObject.getAsInt("ID"));
+                int iduser = jsonObject.get("ID").getAsInt();
+
+                String titol = jsonObject.get("TITOL").getAsString();
+                String descripcio = jsonObject.get("DESCRIPCIO").getAsString();
+                String rutaImage = jsonObject.get("ID_IMAGE").getAsString();
+                String image = rutaImage.replace("\",", "");
+                String regId =  jsonObject.get("REGID").toString();
+                String categoria =  jsonObject.get("CATEGORIA").toString();
+
+                double preu = jsonObject.get("PREU").getAsDouble();
+                boolean peticio;
+                if (jsonObject.get("PETICIO").getAsString().equals("1")){
+                    peticio = true;
+                } else {
+                    peticio = false;
+                }
+                boolean venta;
+                if (jsonObject.get("VENTA").getAsString().equals("1")){
+                    venta = true;
+                } else {
+                    venta = false;
+                }
+                boolean intercanvi;
+                if (jsonObject.get("INTERCANVI").getAsString().equals("1")){
+                    intercanvi = true;
+                } else {
+                    intercanvi = false;
+                }
+
+                boolean venut;
+                if (jsonObject.get("VENUT").getAsString().equals("1")){
+                    venut = true;
+                } else {
+                    venut = false;
+                }
+
+                // Crear producte i afegir a la llsita
+
+                if (!venut){
+                    Product producte = new Product(iduser,titol,descripcio,preu,peticio,venta,intercanvi, image,regId,categoria);
                     listaProd.add(producte);
                 }
 

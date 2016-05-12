@@ -65,6 +65,17 @@
             android:label="@string/title_activity_detalle_producto"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.OwnDetalleProducto"
+            android:label="@string/title_activity_detalle_producto"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Activities.OwnProductsList"
+            android:label="@string/title_activity_detalle_producto"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Splash screen -->
         <activity
