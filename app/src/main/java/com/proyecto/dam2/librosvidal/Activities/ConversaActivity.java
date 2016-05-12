@@ -3,6 +3,7 @@ package com.proyecto.dam2.librosvidal.Activities;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.proyecto.dam2.librosvidal.Adapters.ListViewAdapterMessages;
 import com.proyecto.dam2.librosvidal.Clases.Message;
 import com.proyecto.dam2.librosvidal.Clases.Product;
 import com.proyecto.dam2.librosvidal.Clases.QueueMessages;
+import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 import com.proyecto.dam2.librosvidal.Database.LogChatSQLite;
 import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
@@ -105,13 +107,15 @@ public class ConversaActivity extends AppCompatActivity {
             LogChatSQLite bd = new LogChatSQLite(context);
             bd.guardarMensaje(regID,text,System.currentTimeMillis(),usuari,"true");
 
+
+            /* TODO OBTENIR EL NOM DEL USUARI.
             // Controlar si es el primer cop que obri xat amb aquesta persona i guarda conversa
             if (PreferencesUser.getPreference("chat_"+regID,context).equals("")){
                 listaMessages = bd.listaMensajes(regID,context);
                 PreferencesUser.setPreference("chat_"+regID,"true",context);
-                bd.guardarConversa(regID, listaMessages.get(0).getFromName());
+                bd.guardarConversa(regID, ServerAPI.getUserName(regID));
             }
-
+            */
 
             //afegir-lo a la llista.
             listaMessages.add(message);

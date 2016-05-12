@@ -253,4 +253,38 @@ public class ServerAPI {
     }
 
 
+    public static String getUserName(String regId){
+        String response = "";
+        HashMap<String,String> postParams = new HashMap<>();
+        postParams.put("action","get_username");
+        postParams.put("regid",regId);
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
+
+        HttpConnection request = new HttpConnection(url, postParams,
+                "login");
+
+        while (!request.isReceived()) {
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+        response = request.getResponse();
+
+        Log.i("COC", "getusername->" + response);
+
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+            response = jsonObject.get("NOM").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
+
 }
