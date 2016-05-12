@@ -32,7 +32,7 @@ public class Contactar extends AppCompatActivity {
 
     public void enviarMsg(View view){
 
-        GMailSender sender = new GMailSender("david.martinez.cvb@gmail.com", "****");
+        GMailSender sender = new GMailSender("david.martinez.cvb@gmail.com", "*******");
         try {
             sender.sendMail("Asunto del mail",
                     "Cuerpo del mail",

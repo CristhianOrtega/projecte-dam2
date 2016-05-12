@@ -75,6 +75,9 @@ public class Chat extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         adapter = new ListViewAdapterChats(this, listaChats);
         ListViewDetail.setAdapter(adapter);
 
+        // stopping swipe refresh
+        swipeRefreshLayout.setRefreshing(false);
+
     }
 
 

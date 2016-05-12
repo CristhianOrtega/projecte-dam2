@@ -6,6 +6,7 @@ package com.proyecto.dam2.librosvidal.Utils;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -51,7 +52,7 @@ public class GMailSender extends javax.mail.Authenticator {
     }
 
     public synchronized void sendMail(String subject, String body, String sender, String recipients) throws Exception {
-        MimeMessage message = new MimeMessage(session);
+        final MimeMessage message = new MimeMessage(session);
         DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
         message.setSender(new InternetAddress(sender));
         message.setSubject(subject);
@@ -60,7 +61,23 @@ public class GMailSender extends javax.mail.Authenticator {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
         else
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
-        Transport.send(message);
+        try{
+            Thread thread = new Thread(){
+                @Override
+                public void run(){
+                    try {
+                        Transport.send(message);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+        } catch (Exception e){
+            System.out.println("Error: " + e);
+        }
+
     }
 
     public class ByteArrayDataSource implements DataSource {
