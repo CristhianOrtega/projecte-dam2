@@ -50,6 +50,7 @@ public class PantallaPrincipal extends AppCompatActivity implements NavigationVi
         System.out.println("Entra desde onResume");
         //cargaPreferenciasUser();
         DatosNavigation.cargaPreferenciasUser(prefs,navigationView,headerView,context);
+        onRefresh();
 
     }
 
