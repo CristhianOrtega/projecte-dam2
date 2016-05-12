@@ -1,18 +1,12 @@
 package com.proyecto.dam2.librosvidal.Utils;
 
+import java.security.AccessController;
 import java.security.Provider;
 
 /**
- * Created by david on 11/5/16.
+ * Created by david on 12/5/16.
  */
-import java.security.AccessController;
-
-public class JSSEProvider extends Provider {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public final class JSSEProvider extends Provider {
 
     public JSSEProvider() {
         super("HarmonyJSSE", 1.0, "Harmony JSSE Provider");

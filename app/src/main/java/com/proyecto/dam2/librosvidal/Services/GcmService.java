@@ -132,9 +132,6 @@ public class GcmService extends IntentService {
                         BD.guardarMensaje(regId, missatge, fecha, fromName, "false");
 
 
-                        Contacte contacto = new Contacte(fromName,missatge,regId);
-                        Chat.listaChats.add(contacto);
-
                     }
 
 

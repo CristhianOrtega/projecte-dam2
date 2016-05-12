@@ -21,7 +21,6 @@ import java.util.Properties;
 public class Contactar extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,27 +32,17 @@ public class Contactar extends AppCompatActivity {
 
     public void enviarMsg(View view){
 
+        GMailSender sender = new GMailSender("david.martinez.cvb@gmail.com", "****");
         try {
-            GMailSender sender = new GMailSender("39935455a@vidalibarraquer.net>",
-                    "******");
-            sender.sendMail("This is Subject", "This is Body",
-                    "39935455a@vidalibarraquer.net", "39935455a@vidalibarraquer.net");
-            Toast.makeText(Contactar.this, "Mail Send Successfully.....", Toast.LENGTH_LONG).show();
+            sender.sendMail("Asunto del mail",
+                    "Cuerpo del mail",
+                    "david.martinez.cvb@gmail.com",
+                    "david.martinez.cvb@gmail.com");
         } catch (Exception e) {
             Log.e("SendMail", e.getMessage(), e);
         }
 
     }
 
-
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            return true;
-        }
-        return false;
-    }
 
 }
