@@ -14,6 +14,7 @@ import com.proyecto.dam2.librosvidal.Clases.QueueMessages;
 import com.proyecto.dam2.librosvidal.Database.LogChatSQLite;
 import com.proyecto.dam2.librosvidal.Preferences.PreferencesUser;
 import com.proyecto.dam2.librosvidal.R;
+import com.proyecto.dam2.librosvidal.Services.GcmService;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class ConversaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversa);
         context = this;
+
+        // Controlar si es el primer cop que obri xat amb aquesta persona
+        PreferencesUser.setPreference("chat_"+regID,"",context);
 
         // Carregar dades del producte per si ve de clicar el boto de contacta
         if (getIntent().getSerializableExtra("Producte") != null) {
@@ -59,6 +63,15 @@ public class ConversaActivity extends AppCompatActivity {
             System.out.println("PROVA CHAT   -    ENTRA PER NOTIFICACIÓ");
             System.out.println("    REG_ID PARA: "+regID);
             System.out.println("    REG_ID TUYO: "+PreferencesUser.getPreference("REGID",context));
+
+            // Controlar si es el primer cop que obri xat amb aquesta persona
+            if (PreferencesUser.getPreference("chat_"+regID,context).equals("")){
+                PreferencesUser.setPreference("chat_"+regID,"true",context);
+                BD.guardarConversa(regID, listaMessages.get(0).getFromName());
+            }
+
+            //treure notificació
+            GcmService.cancelNotification(context);
 
         }
 

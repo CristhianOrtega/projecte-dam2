@@ -1,6 +1,6 @@
 package com.proyecto.dam2.librosvidal.Clases;
 
-import android.graphics.Bitmap;
+
 
 /**
  * Created by david on 5/5/16.
@@ -9,12 +9,20 @@ public class Contacte {
     String nom;
     String lastMsg;
     String imagePerfilCont;
-    String regId;
+    String REGIDFOR;
 
-    public Contacte(String nom, String lastMsg, String regId) {
+
+    public Contacte(String nom,String REGIDFOR) {
         this.nom = nom;
-        this.lastMsg = lastMsg;
-        this.regId = regId;
+        this.REGIDFOR = REGIDFOR;
+    }
+
+    public String getREGIDFOR() {
+        return REGIDFOR;
+    }
+
+    public void setREGIDFOR(String REGIDFOR) {
+        this.REGIDFOR = REGIDFOR;
     }
 
     public String getNom() {
@@ -39,13 +47,5 @@ public class Contacte {
 
     public void setLastMsg(String lastMsg) {
         this.lastMsg = lastMsg;
-    }
-
-    public String getRegId() {
-        return regId;
-    }
-
-    public void setRegId(String regId) {
-        this.regId = regId;
     }
 }

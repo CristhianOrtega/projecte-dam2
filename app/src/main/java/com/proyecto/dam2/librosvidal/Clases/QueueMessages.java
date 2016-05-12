@@ -8,6 +8,6 @@ import java.util.Stack;
 public class QueueMessages {
 
     public static Stack<Message> MessageQueue =  new Stack<>();
-    public static Stack<Message> MessageQueueEntrada = new Stack<>();
+
 
 }

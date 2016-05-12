@@ -10,13 +10,17 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.proyecto.dam2.librosvidal.Clases.Contacte;
+import com.proyecto.dam2.librosvidal.Clases.Message;
 import com.proyecto.dam2.librosvidal.Clases.Product;
+import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
+import com.proyecto.dam2.librosvidal.Database.LogChatSQLite;
 import com.proyecto.dam2.librosvidal.R;
 
 import java.util.ArrayList;
 
 public class ListViewAdapterChats extends BaseAdapter {
-    static ArrayList<Contacte> myList = new ArrayList<Contacte>();
+
+    static ArrayList<Contacte> myList;
     LayoutInflater inflater;
     Context context;
 
@@ -54,15 +58,21 @@ public class ListViewAdapterChats extends BaseAdapter {
             mViewHolder = (MyViewHolder) convertView.getTag();
         }
 
+        LogChatSQLite logChatSQLite =  new LogChatSQLite(context);
+
         Contacte currentListProd = getItem(position);
-        mViewHolder.nomcontact.setText(currentListProd.getNom());
-        mViewHolder.lastMsg.setText("" + currentListProd.getLastMsg());
-        mViewHolder.aq.id(convertView.findViewById(R.id.fotoCont)).image(currentListProd.getImagePerfilCont(), true, true);
-        System.out.println(currentListProd.getImagePerfilCont());
+        String regid = currentListProd.getREGIDFOR();
+        String lastMessage = logChatSQLite.getLastMessage(regid);
+
+        mViewHolder.imageContact.setImageResource(R.drawable.fotoperfildefect);
+        mViewHolder.nomcontact.setText(""+currentListProd.getNom());
+        mViewHolder.lastMsg.setText(lastMessage);
+        //String ruta_image = ServerAPI.getUserImageByRegID(regid);
+        //System.out.println(ruta_image);
+        //String ruta_image = "http://programacion.cocinassobreruedas.com/images/27/27_imageUser.jpeg";
+        //mViewHolder.aq.id(convertView.findViewById(R.id.fotoCont)).image(ruta_image, true, true);
 
         return convertView;
-
-
     }
 
 

@@ -35,21 +35,23 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="NOM CONTACTE"
+            android:layout_marginLeft="8dp"
             android:id="@+id/nomContact"
             android:textSize="20dp"
             android:layout_below="@+id/Preu"
-            android:layout_centerHorizontal="true" />
+            android:layout_gravity="left" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ultim missatge"
             android:textSize="17dp"
+            android:layout_marginLeft="8dp"
             android:id="@+id/lastMsg"
-            android:layout_alignParentTop="true"
+            android:layout_gravity="left"
             android:layout_alignLeft="@+id/nomContact"
             android:layout_alignStart="@+id/nomContact"
-            android:layout_gravity="center_horizontal" />
+           />
     </LinearLayout>
 
 </LinearLayout>

@@ -87,17 +87,26 @@ public class Buscar extends AppCompatActivity implements NavigationView.OnNaviga
         int id = item.getItemId();
 
         if (id == R.id.buscarProdMenu) {
+            /*
             Intent i = new Intent(this, Buscar.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
-        } else if (id == R.id.PerfilMenu) {
+            */
+        }else if (id == R.id.PerfilMenu) {
+            Intent i = new Intent(this, VerPerfil.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
 
         } else if (id == R.id.ChatMenu) {
+            Intent i = new Intent(this, Chat.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
 
         } else if (id == R.id.inicio) {
             Intent i = new Intent(this, PantallaPrincipal.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+
         } else if (id == R.id.loginMenu) {
             Intent i = new Intent(this, LoginActivity.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -62,6 +62,43 @@ public class ServerAPI {
         return image;
     }
 
+    public static String getUserImageByRegID(String regid){
+
+        String image = "";
+        // --- request image products ---------------------------------------------------------------------------
+        String response = "";
+        HashMap<String,String> postParams = new HashMap<>();
+        postParams.put("action","get_user_image_byregid");
+        postParams.put("regid",regid);
+        String url = "http://programacion.cocinassobreruedas.com/api.php";
+
+        HttpConnection request = new HttpConnection(url, postParams,
+                "product image");
+
+        while (!request.isReceived()) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+
+            }
+        }
+
+        response = request.getResponse();
+
+        Log.i("COC", "GetUserImageByRegID Image->" + response);
+
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+            String ruta = jsonObject.get("IMAGEPERFIL").toString();
+            image = ruta;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return image;
+    }
+
 
     public static void postToGCM(String regid,String message,String from,Context context){
 

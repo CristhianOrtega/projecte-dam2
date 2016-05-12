@@ -98,6 +98,11 @@ public class DetalleProducto extends AppCompatActivity
         TextView descripcionDet = (TextView) findViewById(R.id.DescripcioDet);
         descripcionDet.setText(producte.getDescripcio());
 
+        /* todo afegir categoria
+        TextView categoria = (TextView) findViewById(R.id.CategoriaDet);
+        categoria.setText(producte.getCategoria());
+        */
+
         ImageView imageDet = (ImageView) findViewById(R.id.imageDet);
 
         TextView ventaDet = (TextView) findViewById(R.id.ventaDet);
