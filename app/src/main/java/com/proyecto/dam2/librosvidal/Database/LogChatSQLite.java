@@ -65,18 +65,14 @@ public class LogChatSQLite extends SQLiteOpenHelper {
 
 
     public ArrayList listaMensajes(String regID, Context context) {
+
         ArrayList<Message> result = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT regID, missatge, fecha, nomUser, isSelf  FROM " +
                 "logChat WHERE regID = '"+regID+"'",null);
 
-
         while (cursor.moveToNext()){
-
-            //           get regID                 get Missatge            get Fecha              get NomUser
-            // result.add(cursor.getString(0)+" " +cursor.getString(1)+" "+cursor.getLong(2)+" "+cursor.getString(3));
-
 
             String nomBD = cursor.getString(3);
             String nomPR = PreferencesUser.getPreference("NOM", context);
@@ -94,6 +90,7 @@ public class LogChatSQLite extends SQLiteOpenHelper {
     }
 
     public ArrayList listaChat(Context context) {
+
         ArrayList<Contacte> result = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
@@ -112,6 +109,7 @@ public class LogChatSQLite extends SQLiteOpenHelper {
     }
 
     public String getLastMessage(String regID) {
+
         SQLiteDatabase db = getReadableDatabase();
         String result = "";
 
@@ -125,6 +123,7 @@ public class LogChatSQLite extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return result;
+
     }
 
 

@@ -105,11 +105,17 @@ public class ConversaActivity extends AppCompatActivity {
             LogChatSQLite bd = new LogChatSQLite(context);
             bd.guardarMensaje(regID,text,System.currentTimeMillis(),usuari,"true");
 
+            // Controlar si es el primer cop que obri xat amb aquesta persona i guarda conversa
+            if (PreferencesUser.getPreference("chat_"+regID,context).equals("")){
+                listaMessages = bd.listaMensajes(regID,context);
+                PreferencesUser.setPreference("chat_"+regID,"true",context);
+                bd.guardarConversa(regID, listaMessages.get(0).getFromName());
+            }
+
+
             //afegir-lo a la llista.
             listaMessages.add(message);
-
-            // refrescar la listview
-            updateList();
+            
 
             // Afegir a la cua de sortida
             QueueMessages.MessageQueue.push(message);
