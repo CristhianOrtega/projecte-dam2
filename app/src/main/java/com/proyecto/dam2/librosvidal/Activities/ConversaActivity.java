@@ -23,7 +23,7 @@ import java.util.Vector;
 public class ConversaActivity extends AppCompatActivity {
 
     ListView ListViewDetail;
-    ArrayList<Message> listaMessages;
+    public static ArrayList<Message> listaMessages;
     private ListViewAdapterMessages adapter;
     Product producte;
     Context context;

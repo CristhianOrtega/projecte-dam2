@@ -18,6 +18,8 @@ import com.proyecto.dam2.librosvidal.Communications.ServerAPI;
 
 public class ServiceCommunicator extends IntentService {
     Context context;
+    private static boolean running = false;
+
     public ServiceCommunicator() {
         super("Communicator");
     }
@@ -57,5 +59,9 @@ public class ServiceCommunicator extends IntentService {
         super.onStartCommand(intent, flags, startId);
         context = this;
         return START_STICKY;
+    }
+
+    public static boolean isRunning() {
+        return running;
     }
 }

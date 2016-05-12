@@ -19,6 +19,7 @@ import com.proyecto.dam2.librosvidal.Activities.Chat;
 import com.proyecto.dam2.librosvidal.Activities.ConversaActivity;
 import com.proyecto.dam2.librosvidal.Activities.PantallaPrincipal;
 import com.proyecto.dam2.librosvidal.Clases.Contacte;
+import com.proyecto.dam2.librosvidal.Clases.Message;
 import com.proyecto.dam2.librosvidal.Database.LogChatSQLite;
 import com.proyecto.dam2.librosvidal.EventHandlers.GcmBroadcastReceiver;
 import com.proyecto.dam2.librosvidal.R;
@@ -131,6 +132,11 @@ public class GcmService extends IntentService {
                         LogChatSQLite BD = new LogChatSQLite(context);
                         BD.guardarMensaje(regId, missatge, fecha, fromName, "false");
 
+
+                        // inserir a la llista de la conversa per tal d'evitar recarregar la pagina
+                        if(!ConversaActivity.listaMessages.isEmpty()) {
+                            ConversaActivity.listaMessages.add(new Message(fromName, missatge, regId, false));
+                        }
 
                     }
 
