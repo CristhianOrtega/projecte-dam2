@@ -115,7 +115,9 @@ public class ConversaActivity extends AppCompatActivity {
 
             //afegir-lo a la llista.
             listaMessages.add(message);
-            
+
+            // refrescar la listview
+            updateList();
 
             // Afegir a la cua de sortida
             QueueMessages.MessageQueue.push(message);
