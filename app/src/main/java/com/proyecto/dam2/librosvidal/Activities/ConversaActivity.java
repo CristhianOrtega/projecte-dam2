@@ -39,7 +39,7 @@ public class ConversaActivity extends AppCompatActivity {
         context = this;
 
         // Controlar si es el primer cop que obri xat amb aquesta persona
-        PreferencesUser.setPreference("chat_"+regID,"",context);
+        //PreferencesUser.setPreference("chat_"+regID,"",context);
 
         // Carregar dades del producte per si ve de clicar el boto de contacta
         if (getIntent().getSerializableExtra("Producte") != null) {
