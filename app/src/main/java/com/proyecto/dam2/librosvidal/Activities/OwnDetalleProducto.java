@@ -37,7 +37,6 @@ public class OwnDetalleProducto extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         prefs = getSharedPreferences("PreferenciasUser", Context.MODE_PRIVATE);
-        context = this;
         setContentView(R.layout.activity_detalle_producto_admin);
 
 
@@ -199,8 +198,18 @@ public class OwnDetalleProducto extends AppCompatActivity
             Intent i = new Intent(this, PantallaPrincipal.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+
         } else if (id == R.id.loginMenu) {
             Intent i = new Intent(this, LoginActivity.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (id == R.id.contactarMenu) {
+            Intent i = new Intent(this, Contactar.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
+        else if (id == R.id.OwnProds) {
+            Intent i = new Intent(this, OwnProductsList.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         }

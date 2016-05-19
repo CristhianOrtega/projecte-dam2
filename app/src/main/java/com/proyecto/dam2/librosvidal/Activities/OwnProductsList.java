@@ -46,7 +46,6 @@ public class OwnProductsList extends AppCompatActivity implements NavigationView
         super.onResume();
         navigationView.getMenu().clear();
         System.out.println("Entra desde onResume");
-        //cargaPreferenciasUser();
         DatosNavigation.cargaPreferenciasUser(prefs, navigationView, headerView, context);
 
     }
@@ -103,7 +102,10 @@ public class OwnProductsList extends AppCompatActivity implements NavigationView
 
         // CARGAR ELEMENTOS EN EL LIST VIEW
         //listaProd = (ArrayList<Product> )getIntent().getSerializableExtra("lista");
-        listaProd = SplashScreen.listaProd;
+        //listaProd = SplashScreen.listaProd;
+        listaProd = new ArrayList<>();
+        String idUser = ""+prefs.getInt("ID", 0);
+        CargarProds.obtenirProdsOwn(listaProd, idUser);
         System.out.println("En la lista hay: " + listaProd.size());
         ListViewDetail = (ListView) findViewById(R.id.list);
 
@@ -182,11 +184,10 @@ public class OwnProductsList extends AppCompatActivity implements NavigationView
             startActivity(i);
 
         } else if (id == R.id.inicio) {
-            /*
             Intent i = new Intent(this, PantallaPrincipal.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
-            */
+
         } else if (id == R.id.loginMenu) {
             Intent i = new Intent(this, LoginActivity.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -197,7 +198,7 @@ public class OwnProductsList extends AppCompatActivity implements NavigationView
             startActivity(i);
         }
         else if (id == R.id.OwnProds) {
-            Intent i = new Intent(this, OwnDetalleProducto.class );
+            Intent i = new Intent(this, OwnProductsList.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         }

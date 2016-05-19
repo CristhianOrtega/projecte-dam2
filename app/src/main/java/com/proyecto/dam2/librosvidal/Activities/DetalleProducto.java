@@ -205,8 +205,18 @@ public class DetalleProducto extends AppCompatActivity
             Intent i = new Intent(this, PantallaPrincipal.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+
         } else if (id == R.id.loginMenu) {
             Intent i = new Intent(this, LoginActivity.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        } else if (id == R.id.contactarMenu) {
+            Intent i = new Intent(this, Contactar.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
+        else if (id == R.id.OwnProds) {
+            Intent i = new Intent(this, OwnProductsList.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         }

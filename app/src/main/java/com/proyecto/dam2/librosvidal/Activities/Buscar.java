@@ -87,12 +87,10 @@ public class Buscar extends AppCompatActivity implements NavigationView.OnNaviga
         int id = item.getItemId();
 
         if (id == R.id.buscarProdMenu) {
-            /*
             Intent i = new Intent(this, Buscar.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
-            */
-        }else if (id == R.id.PerfilMenu) {
+        } else if (id == R.id.PerfilMenu) {
             Intent i = new Intent(this, VerPerfil.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
@@ -111,6 +109,15 @@ public class Buscar extends AppCompatActivity implements NavigationView.OnNaviga
             Intent i = new Intent(this, LoginActivity.class );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
+        } else if (id == R.id.contactarMenu) {
+            Intent i = new Intent(this, Contactar.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
+        else if (id == R.id.OwnProds) {
+            Intent i = new Intent(this, OwnProductsList.class );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
         }
 
         else if (id == R.id.logoutMenu) {
@@ -124,6 +131,7 @@ public class Buscar extends AppCompatActivity implements NavigationView.OnNaviga
             editor.remove("PERFIL");
             editor.remove("ROL");
             editor.remove("STRINGIMAGE");
+            editor.remove("REGID");
             editor.commit();
             finish();
             startActivity(getIntent());
